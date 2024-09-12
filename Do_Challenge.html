@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF Challenge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #28a745;
+        }
+
+        .challenge-info, .flag-input, .leaderboard {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .challenge-info h2, .flag-input h2, .leaderboard h2 {
+            margin-bottom: 10px;
+            color: #28a745;
+        }
+
+        .timer {
+            font-size: 1.5em;
+            color: #d9534f;
+        }
+
+        .flag-input input {
+            width: 80%;
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .flag-input button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .flag-input button:hover {
+            background-color: #218838;
+        }
+
+        .leaderboard table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .leaderboard th, .leaderboard td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .leaderboard th {
+            background-color: #28a745;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>CTF Challenge</h1>
+
+    <div class="challenge-info">
+        <h2>Challenge Information</h2>
+        <p><strong>Challenge:</strong> Web Exploitation</p>
+        <p><strong>Description:</strong> Uncover vulnerabilities in a web application and retrieve the hidden flag.</p>
+        <p><strong>Time Remaining:</strong> <span id="timer" class="timer">00:00:00</span></p>
+    </div>
+
+    <div class="flag-input">
+        <h2>Submit Flag</h2>
+        <input type="text" id="flag" placeholder="Enter your flag">
+        <button onclick="submitFlag()">Submit</button>
+        <p id="flag-message"></p>
+    </div>
+
+    <div class="leaderboard">
+        <h2>Leaderboard</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>User</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard">
+                <tr>
+                    <td>1</td>
+                    <td>Duc</td>
+                    <td>150</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Bao</td>
+                    <td>100</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Lan</td>
+                    <td>50</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Timer logic
+    const startTime = new Date().getTime() + 3600000; // 1 hour from now
+
+    function updateTimer() {
+        const now = new Date().getTime();
+        const distance = startTime - now;
+
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerHTML = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        if (distance < 0) {
+            clearInterval(timerInterval);
+            document.getElementById("timer").innerHTML = "EXPIRED";
+        }
+    }
+
+    const timerInterval = setInterval(updateTimer, 1000);
+
+    // Flag submission logic
+    function submitFlag() {
+        const correctFlag = "FLAG{correct_flag}";
+        const userFlag = document.getElementById("flag").value;
+        const messageElement = document.getElementById("flag-message");
+
+        if (userFlag === correctFlag) {
+            messageElement.textContent = "Correct flag! You earned 100 points!";
+            messageElement.style.color = "green";
+        } else {
+            messageElement.textContent = "Incorrect flag. Try again!";
+            messageElement.style.color = "red";
+        }
+    }
+</script>
+
+</body>
+</html>
