@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF Challenge Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .challenge-container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .challenge-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .challenge-header h1 {
+            font-size: 2.5em;
+            color: #32cd32; /* Màu xanh lá cây sáng */
+            text-shadow: 0 0 5px #32cd32;
+        }
+
+        .challenge-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .challenge-card {
+            background-color: #fff;
+            border: 2px solid #32cd32;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
+            width: 30%;
+            min-width: 250px;
+            height: 150px; /* Chiều cao khung */
+        }
+
+        @media (max-width: 768px) {
+            .challenge-card {
+                width: 45%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .challenge-card {
+                width: 100%;
+            }
+        }
+
+        .empty-box {
+            height: 100%; /* Chiều cao để khung trống */
+        }
+    </style>
+</head>
+<body>
+    <div class="challenge-container">
+        <div class="challenge-header">
+            <h1>CTF Challenge - 10 Challenges</h1>
+            <p>Here are the available challenges:</p>
+        </div>
+
+        <div class="challenge-list">
+            <!-- 10 thử thách chỉ khung -->
+            <div class="challenge-card">
+                <div class="empty-box"></div>
+            </div>
+            <div class="challenge-card">
+                <div class="empty-box"></div>
+            </div>
+            <div class="challenge-card">
+                <div class="empty-box"></div>
+            </div>
+            <div class="challenge-card">
+                <div class="empty-box"></div>
+            </div>
+            <div class="challenge-card">
+                <div class="empty-box"></div>
+            </div>
+            <div class="challenge-card">
+                <div class="empty-box"></div>
+            </div>
+            <div class="challenge-card">
+                <div class="empty-box"></div>
+            </div>
+            <div class="challenge-card">
+                <div class="empty-box"></div>
+            </div>
+            <div class="challenge-card">
+                <div class="empty-box"></div>
+            </div>
+            <div class="challenge-card">
+                <div class="empty-box"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
