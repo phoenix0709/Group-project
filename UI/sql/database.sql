@@ -2,8 +2,7 @@ CREATE DATABASE IF NOT EXISTS ctf_db;
 USE ctf_db;
 CREATE TABLE IF NOT EXISTS users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,  
-  username VARCHAR(255) NOT NULL UNIQUE,   
-  email VARCHAR(255) NOT NULL UNIQUE,      
+  username VARCHAR(255) NOT NULL UNIQUE,         
   password_hash VARCHAR(255) NOT NULL,     
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
 );
@@ -44,3 +43,4 @@ FROM user_scores s
 JOIN users u ON s.user_id = u.user_id
 GROUP BY u.username
 ORDER BY total_score DESC;
+
