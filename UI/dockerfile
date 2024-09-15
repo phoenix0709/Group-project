@@ -1,7 +1,11 @@
+# Sử dụng hình ảnh PHP với Apache
 FROM php:7.4-apache
 
-RUN docker-php-ext-install mysqli
+# Cài đặt tiện ích cần thiết và mở rộng hỗ trợ MySQL
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-COPY . /var/www/html/
+# Sao chép mã nguồn vào thư mục web của Apache
+COPY ./UI_data /var/www/html
 
+# Thay đổi quyền cho thư mục chứa mã nguồn
 RUN chown -R www-data:www-data /var/www/html

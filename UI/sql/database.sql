@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS challenges (
   challenge_id INT AUTO_INCREMENT PRIMARY KEY, 
   name VARCHAR(255) NOT NULL,                  
   description TEXT,                            
-  points INT NOT NULL,                          
-  flag VARCHAR(255) NOT NULL,                   
+  points INT NOT NULL,                         
+  flag VARCHAR(255) NOT NULL UNIQUE,           
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 );
 
@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS user_scores (
   score INT NOT NULL,                          
   completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
   PRIMARY KEY (user_id, challenge_id),         
-  FOREIGN KEY (user_id) REFERENCES users(user_id),   
-  FOREIGN KEY (challenge_id) REFERENCES challenges(challenge_id)  
+  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,   
+  FOREIGN KEY (challenge_id) REFERENCES challenges(challenge_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS challenge_status (
@@ -31,10 +31,10 @@ CREATE TABLE IF NOT EXISTS challenge_status (
   user_id INT,                                 
   start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   end_time TIMESTAMP,                           
-  status VARCHAR(50),                           
+  status VARCHAR(50),                          
   PRIMARY KEY (challenge_id, user_id),          
-  FOREIGN KEY (challenge_id) REFERENCES challenges(challenge_id),  
-  FOREIGN KEY (user_id) REFERENCES users(user_id)  
+  FOREIGN KEY (challenge_id) REFERENCES challenges(challenge_id) ON DELETE CASCADE,  
+  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE  
 );
 
 CREATE OR REPLACE VIEW leaderboard AS
@@ -43,4 +43,3 @@ FROM user_scores s
 JOIN users u ON s.user_id = u.user_id
 GROUP BY u.username
 ORDER BY total_score DESC;
-

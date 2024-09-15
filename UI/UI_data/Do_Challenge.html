@@ -16,73 +16,96 @@
             background-color: #f4f4f4;
             color: #333;
             padding: 20px;
+            display: flex;
+            justify-content: center;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             color: #28a745;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .challenge-info, .flag-input, .leaderboard {
-            background-color: #fff;
+        .challenge-info {
+            background-color: #f9f9f9;
             border: 1px solid #ddd;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
         }
 
-        .challenge-info h2, .flag-input h2, .leaderboard h2 {
+        .challenge-info h2 {
             margin-bottom: 10px;
             color: #28a745;
+            font-size: 1.8em;
+        }
+
+        .challenge-info p {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            line-height: 1.6;
         }
 
         .timer {
             font-size: 1.5em;
             color: #d9534f;
+            font-weight: bold;
+        }
+
+        .flag-input {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .flag-input h2 {
+            margin-bottom: 10px;
+            color: #28a745;
+            font-size: 1.8em;
         }
 
         .flag-input input {
-            width: 80%;
-            padding: 10px;
+            width: 70%;
+            padding: 12px;
             margin-right: 10px;
             border-radius: 4px;
             border: 1px solid #ddd;
+            font-size: 1em;
         }
 
         .flag-input button {
-            padding: 10px 15px;
+            padding: 12px 20px;
             background-color: #28a745;
             color: #fff;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
         }
 
         .flag-input button:hover {
             background-color: #218838;
         }
 
-        .leaderboard table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        .leaderboard th, .leaderboard td {
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-
-        .leaderboard th {
-            background-color: #28a745;
-            color: #fff;
+        .flag-input p {
+            margin-top: 10px;
+            font-size: 1.2em;
         }
     </style>
 </head>
@@ -103,36 +126,6 @@
         <input type="text" id="flag" placeholder="Enter your flag">
         <button onclick="submitFlag()">Submit</button>
         <p id="flag-message"></p>
-    </div>
-
-    <div class="leaderboard">
-        <h2>Leaderboard</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>User</th>
-                    <th>Points</th>
-                </tr>
-            </thead>
-            <tbody id="leaderboard">
-                <tr>
-                    <td>1</td>
-                    <td>Duc</td>
-                    <td>150</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Bao</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Lan</td>
-                    <td>50</td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </div>
 
