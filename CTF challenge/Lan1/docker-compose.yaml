@@ -1,0 +1,15 @@
+services:
+  lan_1:
+    build: ./CTF1  
+    restart: unless-stopped  
+    ports:
+      - "1001:80"  
+    volumes:
+      - ./CTF1/resource:/var/www/html  
+    networks:
+      - ctf_net
+
+networks:
+  ctf_net:
+    driver: bridge
+

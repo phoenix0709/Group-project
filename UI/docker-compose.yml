@@ -34,7 +34,8 @@ volumes:
 
 
 
-#commad: docker-compose up --build : to build  the image and run the container
+#commad: docker-compose build: build the container
+#        docker-compose up  : run the container
 #        docker-compose down : used to stop containers and delete everything created by docker-compose
 #        docker-compose restart db :  used to restart the db container
 #attention: It something change in the  docker-compose file, you need to rebuild down-->up 

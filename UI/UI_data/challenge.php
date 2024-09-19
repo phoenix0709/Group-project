@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";  
 $username = "root";         
-$password = "";             
+$password = "userpassword";             
 $dbname = "ctf_db";         
 
 
