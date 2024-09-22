@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF Challenge</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to external CSS file -->
+</head>
+<body>
+
+<div class="container">
+    <h1>CTF Challenge</h1>
+
+    <div class="challenge-info">
+        <h2>Challenge Information</h2>
+        <p><strong>Challenge:</strong> Web Exploitation</p>
+        <p><strong>Description:</strong> Uncover vulnerabilities in a web application and retrieve the hidden flag.</p>
+        <p><strong>Time Remaining:</strong> <span id="timer" class="timer">00:00:00</span></p>
+    </div>
+
+    <div class="flag-input">
+        <h2>Submit Flag</h2>
+        <input type="text" id="flag" placeholder="Enter your flag">
+        <button onclick="submitFlag()">Submit</button>
+        <p id="flag-message"></p>
+    </div>
+</div>
+
+<script src="script.js"></script> <!-- Link to external JavaScript file -->
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF Challenge Page</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to external CSS -->
+</head>
+<body>
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <h2>Filter by Difficulty</h2>
+        <ul>
+            <li onclick="filterChallenges('easy')">Easy Challenges</li>
+            <li onclick="filterChallenges('medium')">Medium Challenges</li>
+            <li onclick="filterChallenges('hard')">Hard Challenges</li>
+            <li onclick="filterChallenges('all')">Show All</li>
+        </ul>
+    </div>
+
+    <div class="challenge-container">
+        <div class="challenge-header">
+            <h1>CTF Challenge - 10 Challenges</h1>
+            <p>Here are the available challenges:</p>
+        </div>
+
+        <div class="challenge-list">
+            <!-- Easy Challenges -->
+            <div class="challenge-card easy">
+                <p>Empty Content (Easy 1)</p>
+            </div>
+            <div class="challenge-card easy">
+                <p>Empty Content (Easy 2)</p>
+            </div>
+            <div class="challenge-card easy">
+                <p>Empty Content (Easy 3)</p>
+            </div>
+            <div class="challenge-card easy">
+                <p>Empty Content (Easy 4)</p>
+            </div>
+
+            <!-- Medium Challenges -->
+            <div class="challenge-card medium">
+                <p>Empty Content (Medium 1)</p>
+            </div>
+            <div class="challenge-card medium">
+                <p>Empty Content (Medium 2)</p>
+            </div>
+            <div class="challenge-card medium">
+                <p>Empty Content (Medium 3)</p>
+            </div>
+            <div class="challenge-card medium">
+                <p>Empty Content (Medium 4)</p>
+            </div>
+
+            <!-- Hard Challenges -->
+            <div class="challenge-card hard">
+                <p>Empty Content (Hard 1)</p>
+            </div>
+            <div class="challenge-card hard">
+                <p>Empty Content (Hard 2)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaderboard Section -->
+    <div class="ranking-table">
+        <h2>Leaderboard</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Player A</td>
+                    <td>950</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Player B</td>
+                    <td>900</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Player C</td>
+                    <td>850</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Player D</td>
+                    <td>800</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Player E</td>
+                    <td>750</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script> <!-- Link to external JavaScript -->
+</body>
+</html>
