@@ -1,0 +1,14 @@
+services:
+  lan_2:
+    build: ./CTF2
+    restart: unless-stopped
+    ports:
+      - "1002:80"
+    volumes:
+      - ./CTF2/resource:/var/www/html
+    networks:
+      - ctf_net
+
+networks:
+  ctf_net:
+    driver: bridge
