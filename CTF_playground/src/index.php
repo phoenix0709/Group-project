@@ -6,9 +6,10 @@ $dbname = "ctf_db";
 
 
 $conn = new mysqli($servername, $username, $password, $dbname);
-
+#common format to connect to db in docker
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-echo "Connected successfully";
+header("Location: Login_or_register.html");
+exit();
 ?>

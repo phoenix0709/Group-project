@@ -5,7 +5,7 @@ FROM php:7.4-apache
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 # Copy source code to Apache web directory
-COPY ./UI_data /var/www/html
+COPY ./src /var/www/html
 
 # Change permissions for source code directory
 RUN chown -R www-data:www-data /var/www/html

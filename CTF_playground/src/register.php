@@ -7,7 +7,7 @@ $dbname = "ctf_db";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
-    die("connection failed: " . $conn->connect_error);
+    die("connection failed: " . $conn->connect_error); #check for connect
 }
 $new_username = $_POST['new-username'];
 $new_password = $_POST['new-password'];
@@ -24,8 +24,6 @@ if ($new_password !== $confirm_password) {
     $stmt->bind_param("ss", $new_username, $password_hash);
 
     if ($stmt->execute()) {
-        echo "Registered successfully!";
-
         header("Location: /Challenge.html");
         exit();
     } else {
