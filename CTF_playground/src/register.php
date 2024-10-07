@@ -24,8 +24,6 @@ if ($new_password !== $confirm_password) {
     $stmt->bind_param("ss", $new_username, $password_hash);
 
     if ($stmt->execute()) {
-        echo "Registered successfully!";
-
         header("Location: /Challenge.html");
         exit();
     } else {
