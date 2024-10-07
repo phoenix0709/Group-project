@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #B2EBF2; 
+            margin: 0;
+            padding: 20px;
+        }
+
+        .account-info {
+            max-width: 800px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
+
+        .account-info h2 {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .info-container {
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            background-color: #E0F7FA; 
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .info-item strong {
+            color: #00796B; 
+            display: inline-block;
+        }
+
+        button {
+            background-color: #ff8c00; 
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: block;
+            margin: 20px auto;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #004d99;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #editForm {
+            margin-top: 20px;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .popup h3 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .popup input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="account-info">
+        <h2>Personal Information</h2>
+        <div class="info-container">
+            <div class="info">
+                <div class="info-item">
+                    <strong>Full Name:</strong>
+                    <span id="fullName"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Username:</strong>
+                    <span id="username"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Telephone:</strong>
+                    <span id="phone"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Email:</strong>
+                    <span id="email"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Date of Birth:</strong>
+                    <span id="dob"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Sex:</strong>
+                    <span id="gender"></span>
+                </div>
+            </div>
+        </div>
+        <button id="editBtn">Edit</button>
+        <button id="changePasswordBtn">Change Password</button>
+        <button id="logoutBtn">Logout</button> <!-- Thêm nút Logout -->
+
+        <div id="editForm" class="hidden">
+            <div class="form-group">
+                <label for="fullNameInput">Full Name:</label>
+                <input type="text" id="fullNameInput" value="">
+            </div>
+            <div class="form-group">
+                <label for="usernameInput">Username:</label>
+                <input type="text" id="usernameInput" value="">
+            </div>
+            <div class="form-group">
+                <label for="phoneInput">Telephone:</label>
+                <input type="text" id="phoneInput" value="">
+            </div>
+            <div class="form-group">
+                <label for="emailInput">Email:</label>
+                <input type="email" id="emailInput" value="">
+            </div>
+            <div class="form-group">
+                <label for="dobInput">Date of Birth:</label>
+                <input type="date" id="dobInput" value="">
+            </div>
+            <div class="form-group">
+                <label for="genderInput">Sex:</label>
+                <select id="genderInput">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <button id="saveBtn">Save</button>
+        </div>
+
+        <div id="changePasswordPopup" class="hidden popup">
+            <h3>Change Password</h3>
+            <div class="form-group">
+                <label for="oldPasswordInput">Old Password:</label>
+                <input type="password" id="oldPasswordInput" required>
+            </div>
+            <div class="form-group">
+                <label for="newPasswordInput">New Password:</label>
+                <input type="password" id="newPasswordInput" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPasswordInput">Confirm New Password:</label>
+                <input type="password" id="confirmPasswordInput" required>
+            </div>
+            <button id="submitChangePasswordBtn">Submit</button>
+            <button id="closeChangePasswordBtn">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Show or hide the edit form when the "Edit" button is clicked
+        document.getElementById("editBtn").addEventListener("click", function() {
+            document.getElementById("editForm").classList.toggle("hidden");
+        });
+
+        // Show or hide the change password popup when the "Change Password" button is clicked
+        document.getElementById("changePasswordBtn").addEventListener("click", function() {
+            document.getElementById("changePasswordPopup").classList.toggle("hidden");
+        });
+
+        // Save user information and display it on the page
+        document.getElementById("saveBtn").addEventListener("click", function() {
+            var fullName = document.getElementById("fullNameInput").value;
+            var username = document.getElementById("usernameInput").value;
+            var phone = document.getElementById("phoneInput").value;
+            var email = document.getElementById("emailInput").value;
+            var dob = document.getElementById("dobInput").value;
+            var gender = document.getElementById("genderInput").value;
+
+            document.getElementById("fullName").textContent = fullName;
+            document.getElementById("username").textContent = username;
+            document.getElementById("phone").textContent = phone;
+            document.getElementById("email").textContent = email;
+            document.getElementById("dob").textContent = new Date(dob).toLocaleDateString();
+            document.getElementById("gender").textContent = gender;
+
+            document.getElementById("editForm").classList.add("hidden");
+        });
+
+        // Submit the change password form (add your password validation logic here)
+        document.getElementById("submitChangePasswordBtn").addEventListener("click", function() {
+            var oldPassword = document.getElementById("oldPasswordInput").value;
+            var newPassword = document.getElementById("newPasswordInput").value;
+            var confirmPassword = document.getElementById("confirmPasswordInput").value;
+
+            // Example validation
+            if (newPassword === confirmPassword) {
+                alert("Password changed successfully!"); // Replace with your actual password change logic
+                document.getElementById("changePasswordPopup").classList.add("hidden");
+            } else {
+                alert("New passwords do not match!");
+            }
+        });
+
+        document.getElementById("closeChangePasswordBtn").addEventListener("click", function() {
+            document.getElementById("changePasswordPopup").classList.add("hidden");
+        });
+
+        document.getElementById("logoutBtn").addEventListener("click", function() {
+            
+            localStorage.clear(); // Remove user data from localStorage
+            window.location.href = "login_or_register.html"; // Redirect to login or register page
+        });
+    </script>
+</body>
+</html>
