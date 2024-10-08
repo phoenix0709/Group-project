@@ -145,7 +145,8 @@
         </div>
         <button id="editBtn">Edit</button>
         <button id="changePasswordBtn">Change Password</button>
-        <button id="logoutBtn">Logout</button> <!-- Thêm nút Logout -->
+        <button id="logoutBtn">Logout</button> <!-- Logout -->
+        <button id="BackBtn">Back to Challenge</button>   <!-- back -->
 
         <div id="editForm" class="hidden">
             <div class="form-group">
@@ -251,6 +252,10 @@
             
             localStorage.clear(); // Remove user data from localStorage
             window.location.href = "login_or_register.html"; // Redirect to login or register page
+        });
+        document.getElementById("BackBtn").addEventListener("click", function() {
+            
+            window.location.href = "Challenge.html"; // Redirect to login or register page
         });
     </script>
 </body>

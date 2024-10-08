@@ -36,7 +36,7 @@ if ($result->num_rows > 0) {
         "dob" => $row['dob'],
         "gender" => $row['gender']
     );
-    echo json_encode($userData); // Trả về dữ liệu 
+    echo json_encode($userData); 
 } else {
     echo json_encode(["error" => "User not found"]);
 }
