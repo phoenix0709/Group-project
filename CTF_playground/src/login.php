@@ -7,12 +7,13 @@ $dbname = "ctf_db";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);#check for connect
+    die("Connection failed: " . $conn->connect_error);
 }
 
 $username = $_POST['username'];
 $password = $_POST['password'];
 
+// Lấy thông tin người dùng từ cơ sở dữ liệu
 $sql = "SELECT * FROM users WHERE username=?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $username);
@@ -21,6 +22,7 @@ $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
+    // Kiểm tra mật khẩu
     if (password_verify($password, $row['password_hash'])) {
         header("Location: /Challenge.html");
         exit();

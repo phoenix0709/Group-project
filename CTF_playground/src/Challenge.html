@@ -6,179 +6,242 @@
     <title>CTF Challenge Page</title>
     <style>
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Courier New', Courier, monospace;
-        }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
 
-        body {
-            background-color: #f4f4f4;
-            color: #333;
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-        }
+body {
+    background-image: url('CTF challenge.png');
+    background-size: cover;
+    background-position: center;
+    color: #fff; /* Màu chữ trắng để nổi bật trên nền */
+    display: flex;
+    padding: 20px;
+    position: relative;
+}
 
-        .filter-section {
-            width: 20%;
-            background-color: #32cd32;
-            border: 2px solid #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
-            margin-right: 20px;
-            height: fit-content;
-            color: #fff;
-        }
+/* Sidebar */
+.sidebar {
+    position: absolute;
+    top: 0;
+    left: -250px; /* Ẩn bên ngoài */
+    width: 250px;
+    height: 100%;
+    background-color: rgba(50, 205, 50, 0.8); /* Nền xanh lá có độ mờ */
+    padding: 20px;
+    transition: left 0.3s;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    color: #fff; /* Màu chữ trắng */
+}
 
-        .filter-section h2 {
-            font-size: 2em;
-            margin-bottom: 15px;
-            text-align: center;
-            text-transform: uppercase;
-        }
+.sidebar.active {
+    left: 0; 
+}
 
-        .filter-section ul {
-            list-style: none;
-            padding: 0;
-        }
+.sidebar h2 {
+    color: #fff;
+    margin-bottom: 20px;
+}
 
-        .filter-section li {
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #fff;
-            color: #32cd32;
-            text-align: center;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
+.sidebar p {
+    color: #fff;
+    margin-bottom: 15px;
+}
 
-        .filter-section li:hover {
-            background-color: #28a828;
-            color: #fff;
-        }
+.sidebar button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #fff;
+    color: #32cd32;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
 
-        /* Challenge Section */
-        .challenge-container {
-            width: 55%;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
-        }
+.sidebar button:hover {
+    background-color: #f0f0f0;
+}
 
-        .challenge-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+/* Filter Section */
+.filter-section {
+    width: 20%;
+    background-color: rgba(50, 205, 50, 0.8); /* Nền xanh lá có độ mờ */
+    border: 2px solid #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
+    margin-right: 20px;
+    height: fit-content;
+    color: #fff; /* Màu chữ trắng */
+}
 
-        .challenge-header h1 {
-            font-size: 2.5em;
-            color: #32cd32;
-            text-shadow: 0 0 5px #32cd32;
-        }
+.filter-section h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+    text-align: center;
+    text-transform: uppercase;
+}
 
-        .challenge-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: space-between;
-        }
+.filter-section ul {
+    list-style: none;
+    padding: 0;
+}
 
-        .challenge-list h2 {
-            width: 100%;
-            font-size: 1.8em;
-            margin-bottom: 10px;
-        }
+.filter-section li {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #fff;
+    color: #32cd32; /* Màu chữ xanh lá đậm */
+    text-align: center;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
 
-        .challenge-card {
-            background-color: #fff;
-            border: 2px solid #32cd32;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
-            width: 30%;
-            min-width: 250px;
-            height: 150px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-style: italic;
-            color: #999;
-        }
+.filter-section li:hover {
+    background-color: #28a828;
+    color: #fff; /* Khi hover, đổi màu chữ thành trắng */
+}
 
-        .hidden {
-            display: none;
-        }
+/* Challenge Section */
+.challenge-container {
+    width: 55%;
+    background-color: rgba(255, 255, 255, 0.8); /* Nền trắng có độ mờ */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
+    color: #32cd32; /* Màu chữ xanh lá */
+}
 
-        @media (max-width: 768px) {
-            .challenge-card {
-                width: 45%;
-            }
-        }
+.challenge-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        @media (max-width: 480px) {
-            .challenge-card {
-                width: 100%;
-            }
-        }
+.challenge-header h1 {
+    font-size: 2.5em;
+    color: #32cd32;
+    text-shadow: 0 0 5px #32cd32;
+}
 
-        /* Leaderboard Section */
-        .ranking-table {
-            width: 20%;
-            background-color: #32cd32;
-            border: 2px solid #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
-            margin-left: 20px;
-            height: fit-content;
-            color: #fff;
-        }
+.challenge-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
 
-        .ranking-table h2 {
-            font-size: 2em;
-            margin-bottom: 15px;
-            text-align: center;
-            text-transform: uppercase;
-        }
+.challenge-card {
+    background-color: rgba(255, 255, 255, 0.8); /* Nền trắng có độ mờ */
+    border: 2px solid #32cd32;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
+    width: 30%;
+    min-width: 250px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+    color: #32cd32; /* Màu chữ xanh lá */
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #fff;
-            color: #32cd32;
-            border-radius: 8px;
-        }
+.hidden {
+    display: none;
+}
 
-        table, th, td {
-            border: 1px solid #32cd32;
-        }
+@media (max-width: 768px) {
+    .challenge-card {
+        width: 45%;
+    }
+}
 
-        th, td {
-            padding: 10px;
-            text-align: left;
-            font-weight: bold;
-        }
+@media (max-width: 480px) {
+    .challenge-card {
+        width: 100%;
+    }
+}
 
-        th {
-            background-color: #28a828;
-            color: #fff;
-        }
+/* Leaderboard Section */
+.ranking-table {
+    width: 20%;
+    background-color: rgba(50, 205, 50, 0.8); /* Nền xanh lá có độ mờ */
+    border: 2px solid #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
+    margin-left: 20px;
+    height: fit-content;
+    color: #fff; /* Màu chữ trắng */
+}
 
-        tr:nth-child(even) {
-            background-color: #f4f4f4;
-        }
+.ranking-table h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+    text-align: center;
+    text-transform: uppercase;
+}
 
-        tr:nth-child(odd) {
-            background-color: #fff;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.8); /* Nền trắng có độ mờ */
+    color: #32cd32;
+    border-radius: 8px;
+}
+
+table, th, td {
+    border: 1px solid #32cd32;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+}
+
+th {
+    background-color: #28a828; /* Nền xanh lá đậm */
+    color: #fff; /* Màu chữ trắng */
+}
+
+tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.8); /* Nền trắng có độ mờ */
+}
+
+tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Icon */
+.options-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #fff; /* Màu trắng cho biểu tượng */
+}
+
     </style>
 </head>
 <body>
+    <div class="options-icon" id="optionsIcon">☰</div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>Options</h2>
+        <p id="userFullName">Full Name</p>
+        <button onclick="window.location.href='information.html'">Settings</button>
+        <button id="logoutBtn">Logout</button>
+    </div>
+
     <!-- Filter Section -->
     <div class="filter-section">
         <h2>Filter by Difficulty</h2>
@@ -277,16 +340,18 @@
     </div>
 
     <script>
+        document.getElementById("optionsIcon").addEventListener("click", function() {
+            document.getElementById("sidebar").classList.toggle("active");
+            document.getElementById("userFullName").textContent = "John Doe"; //user name
+        });
+
         function filterChallenges(difficulty) {
-            // Get all the challenge cards
             const challenges = document.querySelectorAll('.challenge-card');
 
             challenges.forEach(card => {
-                // Show all if 'all' is selected
                 if (difficulty === 'all') {
                     card.classList.remove('hidden');
                 } else {
-                    // Show/Hide based on difficulty
                     if (card.classList.contains(difficulty)) {
                         card.classList.remove('hidden');
                     } else {
@@ -295,6 +360,13 @@
                 }
             });
         }
+
+        
+        document.getElementById("logoutBtn").addEventListener("click", function() {
+            
+            localStorage.clear(); 
+            window.location.href = "login_or_register.html"; 
+        });
     </script>
     
 </body>
