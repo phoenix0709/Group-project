@@ -1,67 +1,95 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>CTF Challenge</title>
+<head>
+    <title>CTF Playground</title>
     <style>
-       body {
-        background-color: #f2f2f2;
-        font-family: Arial, sans-serif;
-      }
-      
-      h1 {
-        text-align: center;
-        color: #333;
-      }
-      
-      .form-container {
-        max-width: 400px;
-        margin: 0 auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
-      
-      .form-container h2 {
-        margin-top: 0;
-        color: #333;
-      }
-      
-      .form-container label {
-        display: block;
-        margin-bottom: 5px;
-        color: #555;
-      }
-      
-      .form-container input[type="text"],
-      .form-container input[type="password"] {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        margin-bottom: 10px;
-      }
-      
-      .form-container button[type="submit"] {
-        background-color: #4CAF50;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 3px;
-        cursor: pointer;
-      }
-      
-      .form-container button[type="submit"]:hover {
-        background-color: #45a049;
-      }
+        body {
+            background-color: #B2EBF2;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #004d99;
+            margin-top: 50px;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            margin-top: 0;
+            color: #004d99;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            color: #004d99;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="password"],
+        .form-container input[type="tel"],
+        .form-container input[type="date"],
+        .form-container input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        .form-container button[type="submit"] {
+            background-color: #ff8c00;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .form-container button[type="submit"]:hover {
+            background-color: #e07b00;
+        }
+
+        .form-container button {
+            background-color: #004d99;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #003366;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
     </style>
-  </head>
-  <body>
-    <h1>CTF Challenge</h1>
+</head>
+<body>
+    <h1>CTF Playground</h1>
     
     <div class="form-container" id="login-form">
         <h2>Login</h2>
-        <form id="login-form" method="POST" action="login.php">
+        <form id="login" method="POST" onsubmit="login(event)">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             
@@ -69,36 +97,121 @@
             <input type="password" id="password" name="password" required>
             
             <button type="submit">Login</button>
+            <p class="error-message" id="login-error"></p>
         </form>
         <p>Don't have an account? <button onclick="showRegisterForm()">Register</button></p>
     </div>
     
     <div class="form-container" id="register-form" style="display: none;">
         <h2>Register</h2>
-        <form id="register-form" method="POST" action="register.php">
-            <label for="new-username">Username:</label>
-            <input type="text" id="new-username" name="new-username" required>
+        <form id="register" method="POST" onsubmit="register(event)">
+            <div class="form-group">
+                <label for="full-name">Full name:</label>
+                <input type="text" id="full-name" name="full-name" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="new-username">Username:</label>
+                <input type="text" id="new-username" name="new-username" required>
+            </div>
             
-            <label for="new-password">Password:</label>
-            <input type="password" id="new-password" name="new-password" required>
+            <div class="form-group">
+                <label for="new-password">Password:</label>
+                <input type="password" id="new-password" name="new-password" required>
+            </div>
             
-            <label for="confirm-password">Confirm Password:</label>
-            <input type="password" id="confirm-password" name="confirm-password" required>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+                <p class="error-message" id="register-error"></p>
+            </div>
+    
+            <div class="form-group">
+                <label for="phone-number">Phone-number:</label>
+                <input type="tel" id="phone-number" name="phone-number" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="new-gmail">Gmail:</label>
+                <input type="email" id="new-gmail" name="new-gmail" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="Birth_of_date">Date of Birth:</label>
+                <input type="date" id="Birth_of_date" name="Birth_of_date" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="sex">Gender:</label>
+                <div class="gender-options">
+                    <label><input type="radio" name="gender" value="male" checked> Male</label>
+                    <label><input type="radio" name="gender" value="female"> Female</label>
+                    <label><input type="radio" name="gender" value="other"> Other</label>
+                </div>
+            </div>
             
             <button type="submit">Register</button>
+            <p class="error-message" id="registration-success"></p>
         </form>
         <p>Already have an account? <button onclick="showLoginForm()">Login</button></p>
     </div>
-    
+
     <script>
         function showRegisterForm() {
             document.getElementById("login-form").style.display = "none";
             document.getElementById("register-form").style.display = "block";
         }
-        
+
         function showLoginForm() {
             document.getElementById("register-form").style.display = "none";
             document.getElementById("login-form").style.display = "block";
+            clearLoginError();
+        }
+
+        function register(event) {
+            event.preventDefault();
+            const fullName = document.getElementById('full-name').value;
+            const username = document.getElementById('new-username').value;
+            const password = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                document.getElementById('register-error').textContent = "Passwords do not match.";
+                return;
+            }
+
+            // Save user data to localStorage
+            const userData = {
+                fullName,
+                username,
+                password
+            };
+
+            if (localStorage.getItem(username)) {
+                document.getElementById('register-error').textContent = "Username already exists. Choose another.";
+            } else {
+                localStorage.setItem(username, JSON.stringify(userData));
+                document.getElementById('registration-success').textContent = "Registration successful! You can now log in.";
+                showLoginForm();
+            }
+        }
+
+        function login(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const storedUserData = JSON.parse(localStorage.getItem(username));
+            
+            if (storedUserData && storedUserData.password === password) {
+                
+                window.location.href = 'Challenge.html';
+            } else {
+                document.getElementById('login-error').textContent = 'Invalid username or password. Please try again.';
+            }
+        }
+
+        function clearLoginError() {
+            document.getElementById('login-error').textContent = '';
         }
     </script>
 </body>

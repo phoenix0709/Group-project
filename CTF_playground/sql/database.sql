@@ -1,9 +1,11 @@
 CREATE DATABASE IF NOT EXISTS ctf_db;
 USE ctf_db;
+
 CREATE TABLE IF NOT EXISTS users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,  
   username VARCHAR(255) NOT NULL UNIQUE,         
-  password_hash VARCHAR(255) NOT NULL,     
+  password_hash VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE, 
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
 );
 
@@ -14,6 +16,17 @@ CREATE TABLE IF NOT EXISTS challenges (
   points INT NOT NULL,                         
   flag VARCHAR(255) NOT NULL UNIQUE,           
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+);
+
+CREATE TABLE IF NOT EXISTS submissions (
+  submission_id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  challenge_id INT,
+  flag_submitted VARCHAR(255),
+  is_correct BOOLEAN,
+  submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (challenge_id) REFERENCES challenges(challenge_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS user_scores (

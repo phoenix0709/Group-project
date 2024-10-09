@@ -16,8 +16,50 @@
             background-color: #f4f4f4;
             color: #333;
             display: flex;
-            justify-content: space-between;
             padding: 20px;
+            position: relative; /* Để sidebar có thể được định vị chính xác */
+        }
+
+        .sidebar {
+            position: absolute;
+            top: 0;
+            left: -250px; /* Ẩn bên ngoài */
+            width: 250px;
+            height: 100%;
+            background-color: #32cd32;
+            padding: 20px;
+            transition: left 0.3s;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .sidebar.active {
+            left: 0; 
+        }
+
+        .sidebar h2 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .sidebar p {
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #fff;
+            color: #32cd32;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar button:hover {
+            background-color: #f0f0f0;
         }
 
         .filter-section {
@@ -176,9 +218,29 @@
         tr:nth-child(odd) {
             background-color: #fff;
         }
+
+        /* Icon */
+        .options-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            font-size: 24px;
+            color: #0c0c0c; 
+        }
     </style>
 </head>
 <body>
+    <div class="options-icon" id="optionsIcon">☰</div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>Options</h2>
+        <p id="userFullName">Full Name</p>
+        <button onclick="window.location.href='information.html'">Settings</button>
+        <button id="logoutBtn">Logout</button>
+    </div>
+
     <!-- Filter Section -->
     <div class="filter-section">
         <h2>Filter by Difficulty</h2>
@@ -277,16 +339,18 @@
     </div>
 
     <script>
+        document.getElementById("optionsIcon").addEventListener("click", function() {
+            document.getElementById("sidebar").classList.toggle("active");
+            document.getElementById("userFullName").textContent = "John Doe"; //user name
+        });
+
         function filterChallenges(difficulty) {
-            // Get all the challenge cards
             const challenges = document.querySelectorAll('.challenge-card');
 
             challenges.forEach(card => {
-                // Show all if 'all' is selected
                 if (difficulty === 'all') {
                     card.classList.remove('hidden');
                 } else {
-                    // Show/Hide based on difficulty
                     if (card.classList.contains(difficulty)) {
                         card.classList.remove('hidden');
                     } else {
@@ -295,6 +359,13 @@
                 }
             });
         }
+
+        
+        document.getElementById("logoutBtn").addEventListener("click", function() {
+            
+            localStorage.clear(); 
+            window.location.href = "login_or_register.html"; 
+        });
     </script>
     
 </body>
