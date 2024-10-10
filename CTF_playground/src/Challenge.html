@@ -6,229 +6,228 @@
     <title>CTF Challenge Page</title>
     <style>
         * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Courier New', Courier, monospace;
-}
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
 
-body {
-    background-image: url('CTF_challenge.png');
-    background-size: cover;
-    background-position: center;
-    color: #fff; /* Màu chữ trắng để nổi bật trên nền */
-    display: flex;
-    padding: 20px;
-    position: relative;
-}
+        body {
+            background-image: url('CTF_challenge.png');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            display: flex;
+            padding: 20px;
+            position: relative;
+        }
 
-/* Sidebar */
-.sidebar {
-    position: absolute;
-    top: 0;
-    left: -250px; /* Ẩn bên ngoài */
-    width: 250px;
-    height: 100%;
-    background-color: rgba(50, 205, 50, 0.8); /* Nền xanh lá có độ mờ */
-    padding: 20px;
-    transition: left 0.3s;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    color: #fff; /* Màu chữ trắng */
-}
+        /* Sidebar */
+        .sidebar {
+            position: absolute;
+            top: 0;
+            left: -250px; /* Ẩn bên ngoài */
+            width: 250px;
+            height: 100%;
+            background-color: rgba(50, 205, 50, 0.8); /* Nền xanh lá có độ mờ */
+            padding: 20px;
+            transition: left 0.3s;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            color: #fff;
+        }
 
-.sidebar.active {
-    left: 0; 
-}
+        .sidebar.active {
+            left: 0; 
+        }
 
-.sidebar h2 {
-    color: #fff;
-    margin-bottom: 20px;
-}
+        .sidebar h2 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
 
-.sidebar p {
-    color: #fff;
-    margin-bottom: 15px;
-}
+        .sidebar p {
+            color: #fff;
+            margin-bottom: 15px;
+        }
 
-.sidebar button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: #fff;
-    color: #32cd32;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #fff;
+            color: #32cd32;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
 
-.sidebar button:hover {
-    background-color: #f0f0f0;
-}
+        .sidebar button:hover {
+            background-color: #f0f0f0;
+        }
 
-/* Filter Section */
-.filter-section {
-    width: 20%;
-    background-color: rgba(50, 205, 50, 0.8); /* Nền xanh lá có độ mờ */
-    border: 2px solid #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
-    margin-right: 20px;
-    height: fit-content;
-    color: #fff; /* Màu chữ trắng */
-}
+        /* Filter Section */
+        .filter-section {
+            width: 20%;
+            background-color: rgba(50, 205, 50, 0.8);
+            border: 2px solid #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
+            margin-right: 20px;
+            height: fit-content;
+            color: #fff;
+        }
 
-.filter-section h2 {
-    font-size: 2em;
-    margin-bottom: 15px;
-    text-align: center;
-    text-transform: uppercase;
-}
+        .filter-section h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+        }
 
-.filter-section ul {
-    list-style: none;
-    padding: 0;
-}
+        .filter-section ul {
+            list-style: none;
+            padding: 0;
+        }
 
-.filter-section li {
-    margin-bottom: 15px;
-    padding: 10px;
-    background-color: #fff;
-    color: #32cd32; /* Màu chữ xanh lá đậm */
-    text-align: center;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
+        .filter-section li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #fff;
+            color: #32cd32;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-.filter-section li:hover {
-    background-color: #28a828;
-    color: #fff; /* Khi hover, đổi màu chữ thành trắng */
-}
+        .filter-section li:hover {
+            background-color: #28a828;
+            color: #fff;
+        }
 
-/* Challenge Section */
-.challenge-container {
-    width: 55%;
-    background-color: rgba(255, 255, 255, 0.8); /* Nền trắng có độ mờ */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
-    color: #32cd32; /* Màu chữ xanh lá */
-}
+        /* Challenge Section */
+        .challenge-container {
+            width: 55%;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
+            color: #32cd32;
+        }
 
-.challenge-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
+        .challenge-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-.challenge-header h1 {
-    font-size: 2.5em;
-    color: #32cd32;
-    text-shadow: 0 0 5px #32cd32;
-}
+        .challenge-header h1 {
+            font-size: 2.5em;
+            color: #32cd32;
+            text-shadow: 0 0 5px #32cd32;
+        }
 
-.challenge-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
-}
+        .challenge-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
 
-.challenge-card {
-    background-color: rgba(255, 255, 255, 0.8); /* Nền trắng có độ mờ */
-    border: 2px solid #32cd32;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
-    width: 30%;
-    min-width: 250px;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-style: italic;
-    color: #32cd32; /* Màu chữ xanh lá */
-}
+        .challenge-card {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid #32cd32;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
+            width: 30%;
+            min-width: 250px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-style: italic;
+            color: #32cd32;
+        }
 
-.hidden {
-    display: none;
-}
+        .hidden {
+            display: none;
+        }
 
-@media (max-width: 768px) {
-    .challenge-card {
-        width: 45%;
-    }
-}
+        @media (max-width: 768px) {
+            .challenge-card {
+                width: 45%;
+            }
+        }
 
-@media (max-width: 480px) {
-    .challenge-card {
-        width: 100%;
-    }
-}
+        @media (max-width: 480px) {
+            .challenge-card {
+                width: 100%;
+            }
+        }
 
-/* Leaderboard Section */
-.ranking-table {
-    width: 20%;
-    background-color: rgba(50, 205, 50, 0.8); /* Nền xanh lá có độ mờ */
-    border: 2px solid #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
-    margin-left: 20px;
-    height: fit-content;
-    color: #fff; /* Màu chữ trắng */
-}
+        /* Leaderboard Section */
+        .ranking-table {
+            width: 20%;
+            background-color: rgba(50, 205, 50, 0.8);
+            border: 2px solid #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
+            margin-left: 20px;
+            height: fit-content;
+            color: #fff;
+        }
 
-.ranking-table h2 {
-    font-size: 2em;
-    margin-bottom: 15px;
-    text-align: center;
-    text-transform: uppercase;
-}
+        .ranking-table h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+        }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: rgba(255, 255, 255, 0.8); /* Nền trắng có độ mờ */
-    color: #32cd32;
-    border-radius: 8px;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #32cd32;
+            border-radius: 8px;
+        }
 
-table, th, td {
-    border: 1px solid #32cd32;
-}
+        table, th, td {
+            border: 1px solid #32cd32;
+        }
 
-th, td {
-    padding: 10px;
-    text-align: left;
-    font-weight: bold;
-}
+        th, td {
+            padding: 10px;
+            text-align: left;
+            font-weight: bold;
+        }
 
-th {
-    background-color: #28a828; /* Nền xanh lá đậm */
-    color: #fff; /* Màu chữ trắng */
-}
+        th {
+            background-color: #28a828;
+            color: #fff;
+        }
 
-tr:nth-child(even) {
-    background-color: rgba(255, 255, 255, 0.8); /* Nền trắng có độ mờ */
-}
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
 
-tr:nth-child(odd) {
-    background-color: rgba(255, 255, 255, 0.8);
-}
+        tr:nth-child(odd) {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
 
-/* Icon */
-.options-icon {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    cursor: pointer;
-    font-size: 24px;
-    color: #fff; /* Màu trắng cho biểu tượng */
-}
-
+        /* Icon */
+        .options-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            font-size: 24px;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -361,13 +360,10 @@ tr:nth-child(odd) {
             });
         }
 
-        
         document.getElementById("logoutBtn").addEventListener("click", function() {
-            
             localStorage.clear(); 
             window.location.href = "login_or_register.html"; 
         });
     </script>
-    
 </body>
 </html>
