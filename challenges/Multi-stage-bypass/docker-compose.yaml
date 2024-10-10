@@ -1,0 +1,12 @@
+services:
+  web:
+    build: ./vuln
+    restart: unless-stopped 
+    ports:
+      - "1005:80"
+    networks:
+      - ctf_net
+
+networks:
+  ctf_net:
+    driver: bridge
