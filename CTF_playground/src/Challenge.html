@@ -16,23 +16,39 @@
             background-image: url('CTF_challenge.png');
             background-size: cover;
             background-position: center;
+main
+            color: #fff;
+
             color: #f4f4f4;
+main
             display: flex;
             padding: 20px;
             position: relative;
         }
 
+main
+        /* Sidebar */
+
+main
         .sidebar {
             position: absolute;
             top: 0;
             left: -250px; /* Ẩn bên ngoài */
             width: 250px;
             height: 100%;
+main
+            background-color: rgba(50, 205, 50, 0.8); /* Nền xanh lá có độ mờ */
+
             background-color: #32cd32;
+main
             padding: 20px;
             transition: left 0.3s;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
             z-index: 1000;
+main
+            color: #fff;
+
+main
         }
 
         .sidebar.active {
@@ -47,6 +63,24 @@
         .sidebar p {
             color: #fff;
             margin-bottom: 15px;
+main
+
+        }
+
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #fff;
+            color: #32cd32;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar button:hover {
+            background-color: #f0f0f0;
+main
         }
 
         .sidebar button {
@@ -64,9 +98,10 @@
             background-color: #f0f0f0;
         }
 
+        /* Filter Section */
         .filter-section {
             width: 20%;
-            background-color: #32cd32;
+            background-color: rgba(50, 205, 50, 0.8);
             border: 2px solid #fff;
             border-radius: 10px;
             padding: 20px;
@@ -108,10 +143,11 @@
         /* Challenge Section */
         .challenge-container {
             width: 55%;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
+            color: #32cd32;
         }
 
         .challenge-header {
@@ -132,14 +168,8 @@
             justify-content: space-between;
         }
 
-        .challenge-list h2 {
-            width: 100%;
-            font-size: 1.8em;
-            margin-bottom: 10px;
-        }
-
         .challenge-card {
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.8);
             border: 2px solid #32cd32;
             border-radius: 10px;
             padding: 20px;
@@ -151,7 +181,7 @@
             justify-content: center;
             align-items: center;
             font-style: italic;
-            color: #999;
+            color: #32cd32;
         }
 
         .hidden {
@@ -173,7 +203,7 @@
         /* Leaderboard Section */
         .ranking-table {
             width: 20%;
-            background-color: #32cd32;
+            background-color: rgba(50, 205, 50, 0.8);
             border: 2px solid #fff;
             border-radius: 10px;
             padding: 20px;
@@ -193,7 +223,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.8);
             color: #32cd32;
             border-radius: 8px;
         }
@@ -214,11 +244,21 @@
         }
 
         tr:nth-child(even) {
-            background-color: #f4f4f4;
+            background-color: rgba(255, 255, 255, 0.8);
         }
 
         tr:nth-child(odd) {
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Icon */
+        .options-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            font-size: 24px;
+            color: #fff;
         }
 
         /* Icon */
@@ -362,13 +402,16 @@
             });
         }
 
+main
+        document.getElementById("logoutBtn").addEventListener("click", function() {
+
         
         document.getElementById("logoutBtn").addEventListener("click", function() {
             
+main
             localStorage.clear(); 
             window.location.href = "login_or_register.html"; 
         });
     </script>
-    
 </body>
 </html>
