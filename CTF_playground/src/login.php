@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_name = $_POST['username'];
     $user_password = $_POST['password'];
 
+main
     // Fetch user data from database
     $sql = "SELECT * FROM users WHERE username = '$user_name'";
     $result = $conn->query($sql);
@@ -33,6 +34,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "Invalid password. Please try again.";
         }
+
+// Lấy thông tin người dùng từ cơ sở dữ liệu
+$sql = "SELECT * FROM users WHERE username=?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    // Kiểm tra mật khẩu
+    if (password_verify($password, $row['password_hash'])) {
+        header("Location: /Challenge.html");
+        exit();
+main
     } else {
         echo "Username not found. Please register.";
     }
