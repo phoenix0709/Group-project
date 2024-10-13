@@ -3,12 +3,19 @@
 <head>
     <title>CTF Playground</title>
     <style>
-        body {
-            background-color: #B2EBF2;
-            font-family: Arial, sans-serif;
-            color: #333;
+        html, body {
+            height: 100%;
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-image: url('Login_and_Register.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #333;
         }
 
         h1 {
@@ -20,7 +27,7 @@
         .form-container {
             max-width: 400px;
             margin: 20px auto;
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.8); /* Transparency */
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -180,7 +187,6 @@
                 return;
             }
 
-            // Save user data to localStorage
             const userData = {
                 fullName,
                 username,
@@ -203,10 +209,6 @@
             const storedUserData = JSON.parse(localStorage.getItem(username));
             
             if (storedUserData && storedUserData.password === password) {
-main
-
-                
-main
                 window.location.href = 'Challenge.html';
             } else {
                 document.getElementById('login-error').textContent = 'Invalid username or password. Please try again.';

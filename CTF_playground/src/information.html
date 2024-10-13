@@ -5,55 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Information</title>
     <style>
+        /* Đặt hình nền */
         body {
             font-family: Arial, sans-serif;
-            background-color: #B2EBF2; 
+            background-image: url('Information.png'); /* Đường dẫn hình nền */
+            background-size: cover; /* Phủ toàn bộ màn hình */
+            background-position: center center; /* Căn giữa hình nền */
+            background-repeat: no-repeat; /* Không lặp lại hình nền */
+            background-attachment: fixed; /* Hình nền cố định khi cuộn trang */
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            height: 100vh; /* Đảm bảo chiều cao trang bằng chiều cao của trình duyệt */
+            display: flex; /* Sử dụng Flexbox để căn giữa */
+            justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+            align-items: center; /* Căn giữa nội dung theo chiều dọc */
         }
 
+        /* Định dạng nội dung */
         .account-info {
             max-width: 800px;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.85); /* Màu nền trắng trong suốt cho nội dung */
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            margin: 0 auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            text-align: center; /* Căn giữa nội dung văn bản */
         }
 
         .account-info h2 {
-            text-align: center;
             color: #333;
-            font-size: 28px;
+            font-size: 32px;
             font-weight: bold;
+            margin-bottom: 30px; /* Thêm khoảng cách dưới tiêu đề */
         }
 
         .info-container {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .info-item {
-            background-color: #E0F7FA; 
+            background-color: #B2EBF2;
             padding: 15px;
             border-radius: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 18px;
         }
 
         .info-item strong {
-            color: #00796B; 
+            color: #00796B;
             display: inline-block;
+            width: 120px;
+            text-align: left;
         }
 
         button {
-            background-color: #ff8c00; 
+            background-color: #ff8c00;
             color: white;
             border: none;
             padding: 12px 20px;
             cursor: pointer;
             border-radius: 4px;
-            display: block;
-            margin: 20px auto;
-            width: 100%;
+            display: inline-block;
+            margin: 10px 5px; /* Thêm khoảng cách giữa các nút */
+            width: auto;
         }
 
         button:hover {
@@ -61,7 +74,7 @@
         }
 
         .hidden {
-            display: none;
+            display: none; /* Ẩn form chỉnh sửa mặc định */
         }
 
         .form-group {
@@ -119,55 +132,56 @@
             <div class="info">
                 <div class="info-item">
                     <strong>Full Name:</strong>
-                    <span id="fullName"></span>
+                    <span id="fullName"></span> <!-- Nội dung để trống sẵn sàng chỉnh sửa -->
                 </div>
                 <div class="info-item">
                     <strong>Username:</strong>
-                    <span id="username"></span>
+                    <span id="username"></span> <!-- Nội dung để trống sẵn sàng chỉnh sửa -->
                 </div>
                 <div class="info-item">
                     <strong>Telephone:</strong>
-                    <span id="phone"></span>
+                    <span id="phone"></span> <!-- Nội dung để trống sẵn sàng chỉnh sửa -->
                 </div>
                 <div class="info-item">
                     <strong>Email:</strong>
-                    <span id="email"></span>
+                    <span id="email"></span> <!-- Nội dung để trống sẵn sàng chỉnh sửa -->
                 </div>
                 <div class="info-item">
                     <strong>Date of Birth:</strong>
-                    <span id="dob"></span>
+                    <span id="dob"></span> <!-- Nội dung để trống sẵn sàng chỉnh sửa -->
                 </div>
                 <div class="info-item">
                     <strong>Sex:</strong>
-                    <span id="gender"></span>
+                    <span id="gender"></span> <!-- Nội dung để trống sẵn sàng chỉnh sửa -->
                 </div>
             </div>
         </div>
         <button id="editBtn">Edit</button>
         <button id="changePasswordBtn">Change Password</button>
-        <button id="logoutBtn">Logout</button> <!-- Logout -->
-        <button id="BackBtn">Back to Challenge</button>   <!-- back -->
+        <button id="logoutBtn">Logout</button>
+        <button id="BackBtn">Back to Challenge</button>
 
+        <!-- Form chỉnh sửa mặc định bị ẩn -->
         <div id="editForm" class="hidden">
             <div class="form-group">
                 <label for="fullNameInput">Full Name:</label>
-                <input type="text" id="fullNameInput" value="">
+                <input type="text" id="fullNameInput" placeholder="Enter full name">
             </div>
             <div class="form-group">
                 <label for="usernameInput">Username:</label>
-                <input type="text" id="usernameInput" value="">
+                <input type="text" id="usernameInput" placeholder="Enter username">
             </div>
             <div class="form-group">
                 <label for="phoneInput">Telephone:</label>
-                <input type="text" id="phoneInput" value="">
+                <input type="text" id="phoneInput" placeholder="Enter phone number">
             </div>
             <div class="form-group">
                 <label for="emailInput">Email:</label>
-                <input type="email" id="emailInput" value="">
+                <input type="email" id="emailInput" placeholder="Enter email address">
             </div>
             <div class="form-group">
                 <label for="dobInput">Date of Birth:</label>
-                <input type="date" id="dobInput" value="">
+                <input type="date" id="dobInput">
             </div>
             <div class="form-group">
                 <label for="genderInput">Sex:</label>
@@ -200,17 +214,14 @@
     </div>
 
     <script>
-        // Show or hide the edit form when the "Edit" button is clicked
         document.getElementById("editBtn").addEventListener("click", function() {
             document.getElementById("editForm").classList.toggle("hidden");
         });
 
-        // Show or hide the change password popup when the "Change Password" button is clicked
         document.getElementById("changePasswordBtn").addEventListener("click", function() {
             document.getElementById("changePasswordPopup").classList.toggle("hidden");
         });
 
-        // Save user information and display it on the page
         document.getElementById("saveBtn").addEventListener("click", function() {
             var fullName = document.getElementById("fullNameInput").value;
             var username = document.getElementById("usernameInput").value;
@@ -229,33 +240,27 @@
             document.getElementById("editForm").classList.add("hidden");
         });
 
-        // Submit the change password form (add your password validation logic here)
         document.getElementById("submitChangePasswordBtn").addEventListener("click", function() {
             var oldPassword = document.getElementById("oldPasswordInput").value;
             var newPassword = document.getElementById("newPasswordInput").value;
             var confirmPassword = document.getElementById("confirmPasswordInput").value;
 
-            // Example validation
             if (newPassword === confirmPassword) {
-                alert("Password changed successfully!"); // Replace with your actual password change logic
+                alert("Password changed successfully!");
                 document.getElementById("changePasswordPopup").classList.add("hidden");
             } else {
                 alert("New passwords do not match!");
             }
         });
 
-        document.getElementById("closeChangePasswordBtn").addEventListener("click", function() {
-            document.getElementById("changePasswordPopup").classList.add("hidden");
+        // Xử lý khi nhấn nút "Back to Challenge"
+        document.getElementById("BackBtn").addEventListener("click", function() {
+            window.location.href = "Challenge.html";
         });
 
+        // Xử lý khi nhấn nút "Logout"
         document.getElementById("logoutBtn").addEventListener("click", function() {
-            
-            localStorage.clear(); // Remove user data from localStorage
-            window.location.href = "login_or_register.html"; // Redirect to login or register page
-        });
-        document.getElementById("BackBtn").addEventListener("click", function() {
-            
-            window.location.href = "Challenge.html"; // Redirect to login or register page
+            window.location.href = "Login_or_register.html";
         });
     </script>
 </body>
