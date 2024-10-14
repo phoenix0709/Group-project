@@ -32,50 +32,6 @@
             max-width: 1200px;
         }
 
-        /* Sidebar */
-        .sidebar {
-            position: absolute;
-            top: 0;
-            left: -250px; /* Hidden by default */
-            width: 250px;
-            height: 100%;
-            background-color: rgba(50, 205, 50, 0.8); /* Green background with opacity */
-            padding: 20px;
-            transition: left 0.3s;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            color: #fff;
-        }
-
-        .sidebar.active {
-            left: 0; 
-        }
-
-        .sidebar h2 {
-            color: #fff;
-            margin-bottom: 20px;
-        }
-
-        .sidebar p {
-            color: #fff;
-            margin-bottom: 15px;
-        }
-
-        .sidebar button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            background-color: #fff;
-            color: #32cd32;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .sidebar button:hover {
-            background-color: #f0f0f0;
-        }
-
         /* Filter Section */
         .filter-section {
             width: 20%;
@@ -84,8 +40,8 @@
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
-            height: fit-content;
             color: #fff;
+            height: fit-content;
         }
 
         .filter-section h2 {
@@ -125,6 +81,7 @@
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
             color: #32cd32;
+            display: none; /* Hidden by default */
         }
 
         .challenge-header {
@@ -165,18 +122,6 @@
             display: none;
         }
 
-        @media (max-width: 768px) {
-            .challenge-card {
-                width: 45%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .challenge-card {
-                width: 100%;
-            }
-        }
-
         /* Leaderboard Section */
         .ranking-table {
             width: 20%;
@@ -187,6 +132,7 @@
             box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
             height: fit-content;
             color: #fff;
+            display: none; /* Hidden by default */
         }
 
         .ranking-table h2 {
@@ -227,18 +173,104 @@
             background-color: rgba(255, 255, 255, 0.8);
         }
 
-        /* Icon */
+        /* Sidebar CSS */
         .options-icon {
             position: absolute;
             top: 20px;
             left: 20px;
             cursor: pointer;
             font-size: 24px;
+            color: #0c0c0c;
+        }
+
+        .sidebar {
+            position: absolute;
+            top: 0;
+            left: -250px; /* Hide outside screen */
+            width: 250px;
+            height: 100%;
+            background-color: #32cd32;
+            padding: 20px;
+            transition: left 0.3s;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar h2 {
             color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .sidebar p {
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #fff;
+            color: #32cd32;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar button:hover {
+            background-color: #f0f0f0;
         }
     </style>
 </head>
 <body>
+    <div class="content-wrapper">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <h2>Select Difficulty</h2>
+            <ul>
+                <li onclick="showAllChallenges()">Show All</li>
+                <li onclick="showChallengesAndLeaderboard('easy')">Easy</li>
+                <li onclick="showChallengesAndLeaderboard('medium')">Medium</li>
+                <li onclick="showChallengesAndLeaderboard('hard')">Hard</li>
+                <li onclick="showOverallLeaderboard()">Overall Leaderboard</li>
+            </ul>
+        </div>
+
+        <!-- Challenge Section -->
+        <div class="challenge-container" id="challenge-container">
+            <div class="challenge-header">
+                <h1 id="challenge-title">Challenges</h1>
+                <p id="challenge-subtitle">Here are the available challenges:</p>
+            </div>
+
+            <div class="challenge-list" id="challenge-list">
+                <!-- Dynamic challenges will be injected here -->
+            </div>
+        </div>
+
+        <!-- Leaderboard Section -->
+        <div class="ranking-table" id="leaderboard">
+            <h2 id="leaderboard-title">Leaderboard</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <!-- Dynamic leaderboard entries will be injected here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Sidebar and Options Section -->
     <div class="options-icon" id="optionsIcon">☰</div>
 
     <!-- Sidebar -->
@@ -249,131 +281,158 @@
         <button id="logoutBtn">Logout</button>
     </div>
 
-    <div class="content-wrapper">
-        <!-- Filter Section -->
-        <div class="filter-section">
-            <h2>Filter by Difficulty</h2>
-            <ul>
-                <li onclick="filterChallenges('easy')">Easy Challenges</li>
-                <li onclick="filterChallenges('medium')">Medium Challenges</li>
-                <li onclick="filterChallenges('hard')">Hard Challenges</li>
-                <li onclick="filterChallenges('all')">Show All</li>
-            </ul>
-        </div>
-
-        <!-- Challenge Section -->
-        <div class="challenge-container">
-            <div class="challenge-header">
-                <h1>CTF Challenge - 10 Challenges</h1>
-                <p>Here are the available challenges:</p>
-            </div>
-
-            <div class="challenge-list">
-                <!-- Easy Challenges -->
-                <div class="challenge-card easy">
-                    <p>Empty Content (Easy 1)</p>
-                </div>
-                <div class="challenge-card easy">
-                    <p>Empty Content (Easy 2)</p>
-                </div>
-                <div class="challenge-card easy">
-                    <p>Empty Content (Easy 3)</p>
-                </div>
-                <div class="challenge-card easy">
-                    <p>Empty Content (Easy 4)</p>
-                </div>
-
-                <!-- Medium Challenges -->
-                <div class="challenge-card medium">
-                    <p>Empty Content (Medium 1)</p>
-                </div>
-                <div class="challenge-card medium">
-                    <p>Empty Content (Medium 2)</p>
-                </div>
-                <div class="challenge-card medium">
-                    <p>Empty Content (Medium 3)</p>
-                </div>
-                <div class="challenge-card medium">
-                    <p>Empty Content (Medium 4)</p>
-                </div>
-
-                <!-- Hard Challenges -->
-                <div class="challenge-card hard">
-                    <p>Empty Content (Hard 1)</p>
-                </div>
-                <div class="challenge-card hard">
-                    <p>Empty Content (Hard 2)</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Leaderboard Section -->
-        <div class="ranking-table">
-            <h2>Leaderboard</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Name</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Player A</td>
-                        <td>950</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Player B</td>
-                        <td>900</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Player C</td>
-                        <td>850</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Player D</td>
-                        <td>800</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Player E</td>
-                        <td>750</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
     <script>
-        document.getElementById("optionsIcon").addEventListener("click", function() {
-            document.getElementById("sidebar").classList.toggle("active");
-            document.getElementById("userFullName").textContent = "CTF BOT"; //user name
-        });
+        const easyChallenges = [
+            { content: "Easy Challenge 1" },
+            { content: "Easy Challenge 2" },
+            { content: "Easy Challenge 3" },
+            { content: "Easy Challenge 4" }
+        ];
 
-        function filterChallenges(difficulty) {
-            const challenges = document.querySelectorAll('.challenge-card');
+        const mediumChallenges = [
+            { content: "Medium Challenge 1" },
+            { content: "Medium Challenge 2" },
+            { content: "Medium Challenge 3" },
+            { content: "Medium Challenge 4" }
+        ];
 
-            challenges.forEach(card => {
-                if (difficulty === 'all') {
-                    card.classList.remove('hidden');
-                } else {
-                    if (card.classList.contains(difficulty)) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                }
+        const hardChallenges = [
+            { content: "Hard Challenge 1" },
+            { content: "Hard Challenge 2" }
+        ];
+
+        const easyLeaderboard = [
+            { name: "Player A", score: 0 },
+            { name: "Player B", score: 0 },
+            { name: "Player C", score: 0 }
+        ];
+
+        const mediumLeaderboard = [
+            { name: "Player A", score: 0 },
+            { name: "Player C", score: 0 },
+            { name: "Player D", score: 0 }
+        ];
+
+        const hardLeaderboard = [
+            { name: "Player B", score: 0 },
+            { name: "Player D", score: 0 }
+        ];
+
+        const overallLeaderboard = [
+            { name: "Player B", score: 0 },
+            { name: "Player A", score: 0 },
+            { name: "Player D", score: 0 },
+            { name: "Player C", score: 0 }
+        ];
+
+        function showAllChallenges() {
+            // Combine all challenges
+            const allChallenges = [...easyChallenges, ...mediumChallenges, ...hardChallenges];
+
+            // Show all challenges
+            generateChallenges(allChallenges);
+            document.getElementById('challenge-title').innerText = "CTF Challenge - 10 Challenges";
+            document.getElementById('challenge-subtitle').innerText = "Here are the available challenges:";
+            document.getElementById('challenge-container').style.display = "block";
+            document.getElementById('leaderboard').style.display = "none"; // Hide leaderboard
+        }
+
+        function showChallengesAndLeaderboard(level) {
+            let challenges = [];
+            let leaderboard = [];
+            let title = "";
+
+            switch (level) {
+                case 'easy':
+                    challenges = easyChallenges;
+                    leaderboard = easyLeaderboard;
+                    title = "Easy";
+                    break;
+                case 'medium':
+                    challenges = mediumChallenges;
+                    leaderboard = mediumLeaderboard;
+                    title = "Medium";
+                    break;
+                case 'hard':
+                    challenges = hardChallenges;
+                    leaderboard = hardLeaderboard;
+                    title = "Hard";
+                    break;
+            }
+
+            // Show challenges and leaderboard
+            generateChallenges(challenges);
+            generateLeaderboard(leaderboard);
+            document.getElementById('challenge-title').innerText = title + " Challenges";
+            document.getElementById('challenge-subtitle').innerText = "Here are the available challenges:";
+            document.getElementById('challenge-container').style.display = "block";
+            document.getElementById('leaderboard-title').innerText = title + " Leaderboard";
+            document.getElementById('leaderboard').style.display = "block";
+        }
+
+        function showOverallLeaderboard() {
+            // Hide challenges and only show overall leaderboard
+            document.getElementById('challenge-container').style.display = "none";
+            generateLeaderboard(overallLeaderboard);
+            document.getElementById('leaderboard-title').innerText = "Overall Leaderboard";
+            document.getElementById('leaderboard').style.display = "block";
+        }
+
+        function generateChallenges(challenges) {
+            const challengeList = document.getElementById('challenge-list');
+            challengeList.innerHTML = ''; // Clear existing challenges
+            challenges.forEach(challenge => {
+                const challengeCard = document.createElement('div');
+                challengeCard.classList.add('challenge-card');
+                challengeCard.innerText = challenge.content;
+                challengeList.appendChild(challengeCard);
             });
         }
 
+        function generateLeaderboard(leaderboard) {
+            const leaderboardBody = document.getElementById('leaderboard-body');
+            leaderboardBody.innerHTML = ''; // Clear existing leaderboard entries
+            leaderboard.forEach((entry, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${index + 1}</td><td>${entry.name}</td><td>${entry.score}</td>`;
+                leaderboardBody.appendChild(row);
+            });
+        }
+
+        // Automatically show all challenges when the page loads
+        window.onload = showAllChallenges;
+
+        // Sidebar functionality
+        document.getElementById("optionsIcon").addEventListener("click", function() {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("active");
+            
+            // Hide the options icon when sidebar is active
+            if (sidebar.classList.contains("active")) {
+                document.getElementById("optionsIcon").style.display = "none"; 
+            }
+
+            document.getElementById("userFullName").textContent = "CTF BOT"; // Replace with actual user name
+        });
+
+        // Logout button functionality
         document.getElementById("logoutBtn").addEventListener("click", function() {
             localStorage.clear(); 
-            window.location.href = "login_or_register.html"; 
+            window.location.href = "login_or_register.html"; // Redirect to login/register page
+        });
+
+        // Close the sidebar and show the options icon again when clicking outside
+        document.addEventListener("click", function(event) {
+            const sidebar = document.getElementById("sidebar");
+            const optionsIcon = document.getElementById("optionsIcon");
+
+            // Check if the click is outside the sidebar and not on the options icon
+            if (!sidebar.contains(event.target) && !optionsIcon.contains(event.target)) {
+                if (sidebar.classList.contains("active")) {
+                    sidebar.classList.remove("active");
+                    optionsIcon.style.display = "block"; // Show the options icon again
+                }
+            }
         });
     </script>
 </body>
