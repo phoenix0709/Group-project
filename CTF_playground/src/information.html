@@ -8,34 +8,34 @@
         /* Đặt hình nền */
         body {
             font-family: Arial, sans-serif;
-            background-image: url('Information.png'); /* Đường dẫn hình nền */
-            background-size: cover; /* Phủ toàn bộ màn hình */
-            background-position: center center; /* Căn giữa hình nền */
-            background-repeat: no-repeat; /* Không lặp lại hình nền */
-            background-attachment: fixed; /* Hình nền cố định khi cuộn trang */
+            background-image: url('Information.png'); 
+            background-size: cover; 
+            background-position: center center; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
             margin: 0;
             padding: 0;
-            height: 100vh; /* Đảm bảo chiều cao trang bằng chiều cao của trình duyệt */
-            display: flex; /* Sử dụng Flexbox để căn giữa */
-            justify-content: center; /* Căn giữa nội dung theo chiều ngang */
-            align-items: center; /* Căn giữa nội dung theo chiều dọc */
+            height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
         }
 
         /* Định dạng nội dung */
         .account-info {
             max-width: 800px;
-            background-color: rgba(255, 255, 255, 0.85); /* Màu nền trắng trong suốt cho nội dung */
+            background-color: rgba(255, 255, 255, 0.85); 
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            text-align: center; /* Căn giữa nội dung văn bản */
+            text-align: left; 
         }
 
         .account-info h2 {
             color: #333;
             font-size: 32px;
             font-weight: bold;
-            margin-bottom: 30px; /* Thêm khoảng cách dưới tiêu đề */
+            margin-bottom: 30px; 
         }
 
         .info-container {
@@ -132,27 +132,27 @@
             <div class="info">
                 <div class="info-item">
                     <strong>Full Name:</strong>
-                    <span id="fullName"></span> <!-- Nội dung để trống sẵn sàng chỉnh sửa -->
+                    <span id="fullName"></span> 
                 </div>
                 <div class="info-item">
                     <strong>Username:</strong>
-                    <span id="username"></span> <!-- Nội dung để trống sẵn sàng chỉnh sửa -->
+                    <span id="username"></span> 
                 </div>
                 <div class="info-item">
                     <strong>Telephone:</strong>
-                    <span id="phone"></span> <!-- Nội dung để trống sẵn sàng chỉnh sửa -->
+                    <span id="phone"></span> 
                 </div>
                 <div class="info-item">
                     <strong>Email:</strong>
-                    <span id="email"></span> <!-- Nội dung để trống sẵn sàng chỉnh sửa -->
+                    <span id="email"></span> 
                 </div>
                 <div class="info-item">
                     <strong>Date of Birth:</strong>
-                    <span id="dob"></span> <!-- Nội dung để trống sẵn sàng chỉnh sửa -->
+                    <span id="dob"></span> 
                 </div>
                 <div class="info-item">
                     <strong>Sex:</strong>
-                    <span id="gender"></span> <!-- Nội dung để trống sẵn sàng chỉnh sửa -->
+                    <span id="gender"></span> 
                 </div>
             </div>
         </div>
@@ -253,12 +253,14 @@
             }
         });
 
-        // Xử lý khi nhấn nút "Back to Challenge"
+        document.getElementById("closeChangePasswordBtn").addEventListener("click", function() {
+            document.getElementById("changePasswordPopup").classList.add("hidden");
+        });
+    
         document.getElementById("BackBtn").addEventListener("click", function() {
             window.location.href = "Challenge.html";
         });
 
-        // Xử lý khi nhấn nút "Logout"
         document.getElementById("logoutBtn").addEventListener("click", function() {
             window.location.href = "Login_or_register.html";
         });
