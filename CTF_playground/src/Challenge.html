@@ -13,7 +13,7 @@
         }
 
         body {
-            background-image: url('CTF_challenge.png');
+            background-image: url('../images/CTF_challenge.png');
             background-size: cover;
             background-position: center;
             color: #f4f4f4;
@@ -28,8 +28,10 @@
         .content-wrapper {
             display: flex;
             justify-content: space-between;
+            align-items: flex-start;
             width: 100%;
             max-width: 1200px;
+            gap: 20px;
         }
 
         /* Filter Section */
@@ -81,7 +83,6 @@
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
             color: #32cd32;
-            display: none; /* Hidden by default */
         }
 
         .challenge-header {
@@ -118,10 +119,6 @@
             color: #32cd32;
         }
 
-        .hidden {
-            display: none;
-        }
-
         /* Leaderboard Section */
         .ranking-table {
             width: 20%;
@@ -132,7 +129,6 @@
             box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
             height: fit-content;
             color: #fff;
-            display: none; /* Hidden by default */
         }
 
         .ranking-table h2 {
@@ -186,7 +182,7 @@
         .sidebar {
             position: absolute;
             top: 0;
-            left: -250px; /* Hide outside screen */
+            left: -250px;
             width: 250px;
             height: 100%;
             background-color: #32cd32;
@@ -227,6 +223,15 @@
     </style>
 </head>
 <body>
+    <div class="options-icon" id="optionsIcon">☰</div>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>Options</h2>
+        <p id="userFullName">Full Name</p>
+        <button onclick="window.location.href='information.html'">Settings</button>
+        <button id="logoutBtn">Logout</button>
+    </div>
+
     <div class="content-wrapper">
         <!-- Filter Section -->
         <div class="filter-section">
@@ -236,7 +241,6 @@
                 <li onclick="showChallengesAndLeaderboard('easy')">Easy</li>
                 <li onclick="showChallengesAndLeaderboard('medium')">Medium</li>
                 <li onclick="showChallengesAndLeaderboard('hard')">Hard</li>
-                <li onclick="showOverallLeaderboard()">Overall Leaderboard</li>
             </ul>
         </div>
 
@@ -244,7 +248,7 @@
         <div class="challenge-container" id="challenge-container">
             <div class="challenge-header">
                 <h1 id="challenge-title">Challenges</h1>
-                <p id="challenge-subtitle">Here are the available challenges:</p>
+                <p id="challenge-subtitle">Here are all available challenges:</p>
             </div>
 
             <div class="challenge-list" id="challenge-list">
@@ -254,7 +258,7 @@
 
         <!-- Leaderboard Section -->
         <div class="ranking-table" id="leaderboard">
-            <h2 id="leaderboard-title">Leaderboard</h2>
+            <h2 id="leaderboard-title">Overall Leaderboard</h2>
             <table>
                 <thead>
                     <tr>
@@ -268,17 +272,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
-
-    <!-- Sidebar and Options Section -->
-    <div class="options-icon" id="optionsIcon">☰</div>
-
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <h2>Options</h2>
-        <p id="userFullName">Full Name</p>
-        <button onclick="window.location.href='information.html'">Settings</button>
-        <button id="logoutBtn">Logout</button>
     </div>
 
     <script>
@@ -301,6 +294,13 @@
             { content: "Hard Challenge 2" }
         ];
 
+        const overallLeaderboard = [
+            { name: "Player B", score: 0 },
+            { name: "Player A", score: 0 },
+            { name: "Player D", score: 0 },
+            { name: "Player C", score: 0 }
+        ];
+
         const easyLeaderboard = [
             { name: "Player A", score: 0 },
             { name: "Player B", score: 0 },
@@ -318,23 +318,20 @@
             { name: "Player D", score: 0 }
         ];
 
-        const overallLeaderboard = [
-            { name: "Player B", score: 0 },
-            { name: "Player A", score: 0 },
-            { name: "Player D", score: 0 },
-            { name: "Player C", score: 0 }
-        ];
-
         function showAllChallenges() {
-            // Combine all challenges
+            // Kết hợp tất cả các thử thách
             const allChallenges = [...easyChallenges, ...mediumChallenges, ...hardChallenges];
 
-            // Show all challenges
+            // Hiển thị tất cả các thử thách
             generateChallenges(allChallenges);
-            document.getElementById('challenge-title').innerText = "CTF Challenge - 10 Challenges";
-            document.getElementById('challenge-subtitle').innerText = "Here are the available challenges:";
-            document.getElementById('challenge-container').style.display = "block";
-            document.getElementById('leaderboard').style.display = "none"; // Hide leaderboard
+            document.getElementById('challenge-title').innerText = "CTF Challenge - All Levels";
+            document.getElementById('challenge-subtitle').innerText = "Here are all available challenges:";
+            document.getElementById('challenge-container').style.display = "block"; // Hiển thị thử thách
+
+            // Hiển thị Overall Leaderboard
+            generateLeaderboard(overallLeaderboard);
+            document.getElementById('leaderboard-title').innerText = "Overall Leaderboard";
+            document.getElementById('leaderboard').style.display = "block"; // Hiển thị bảng xếp hạng tổng
         }
 
         function showChallengesAndLeaderboard(level) {
@@ -342,6 +339,7 @@
             let leaderboard = [];
             let title = "";
 
+            // Phân loại thử thách và bảng xếp hạng theo level
             switch (level) {
                 case 'easy':
                     challenges = easyChallenges;
@@ -360,27 +358,19 @@
                     break;
             }
 
-            // Show challenges and leaderboard
+            // Hiển thị thử thách và bảng xếp hạng
             generateChallenges(challenges);
             generateLeaderboard(leaderboard);
             document.getElementById('challenge-title').innerText = title + " Challenges";
             document.getElementById('challenge-subtitle').innerText = "Here are the available challenges:";
-            document.getElementById('challenge-container').style.display = "block";
+            document.getElementById('challenge-container').style.display = "block"; // Hiển thị thử thách
             document.getElementById('leaderboard-title').innerText = title + " Leaderboard";
-            document.getElementById('leaderboard').style.display = "block";
-        }
-
-        function showOverallLeaderboard() {
-            // Hide challenges and only show overall leaderboard
-            document.getElementById('challenge-container').style.display = "none";
-            generateLeaderboard(overallLeaderboard);
-            document.getElementById('leaderboard-title').innerText = "Overall Leaderboard";
-            document.getElementById('leaderboard').style.display = "block";
+            document.getElementById('leaderboard').style.display = "block"; // Hiển thị bảng xếp hạng
         }
 
         function generateChallenges(challenges) {
             const challengeList = document.getElementById('challenge-list');
-            challengeList.innerHTML = ''; // Clear existing challenges
+            challengeList.innerHTML = ''; // Xóa các thử thách hiện có
             challenges.forEach(challenge => {
                 const challengeCard = document.createElement('div');
                 challengeCard.classList.add('challenge-card');
@@ -391,7 +381,7 @@
 
         function generateLeaderboard(leaderboard) {
             const leaderboardBody = document.getElementById('leaderboard-body');
-            leaderboardBody.innerHTML = ''; // Clear existing leaderboard entries
+            leaderboardBody.innerHTML = ''; // Xóa các mục hiện có
             leaderboard.forEach((entry, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `<td>${index + 1}</td><td>${entry.name}</td><td>${entry.score}</td>`;
@@ -399,7 +389,7 @@
             });
         }
 
-        // Automatically show all challenges when the page loads
+        // Tự động hiển thị tất cả các thử thách khi trang tải
         window.onload = showAllChallenges;
 
         // Sidebar functionality
