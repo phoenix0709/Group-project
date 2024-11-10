@@ -11,12 +11,23 @@ function submitFlag() {
     $challenge_id = $data['challenge_id'];
     $flag = $data['flag'];
 
-    // Reuse $conn or create a new connection
+    // Check for easy challenge
+    if ($challenge_id == 1) { // Challenge ID 1 is the "easy" challenge
+        $correct_flag = "CTF{easy_static_flag}";
+        if ($flag === $correct_flag) {
+            echo json_encode(['message' => 'Correct flag']);
+        } else {
+            echo json_encode(['message' => 'Incorrect flag']);
+        }
+        return;
+    }
+
+    // Reuse $conn or create a new connection for other challenges
     $servername = "localhost";  
     $username = "root";         
     $password = "userpassword";             
     $dbname = "ctf_db";         
-    
+
     $conn = new mysqli($servername, $username, $password, $dbname);
     
     if ($conn->connect_error) {
