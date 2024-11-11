@@ -1,6 +1,6 @@
 <?php
 // Kết nối cơ sở dữ liệu
-require '../index.php'; // Sử dụng file config đã có để kết nối DB
+require '../index.php';
 session_start();
 header("Content-Type: application/json"); // Định dạng phản hồi là JSON
 
@@ -13,14 +13,14 @@ if (!isset($_SESSION['user_id'])) {
 
 try {
     // Truy vấn lấy danh sách thử thách
-    $sql = "SELECT id, name, description, points FROM challenges ORDER BY created_at DESC";
+    $sql = "SELECT challenge_id, name, description, points FROM challenges ORDER BY created_at DESC";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         $challenges = [];
         while ($row = $result->fetch_assoc()) {
             $challenges[] = [
-                "id" => $row['id'],
+                "challenge_id" => $row['id'],
                 "name" => $row['name'],
                 "description" => $row['description'],
                 "points" => $row['points']
