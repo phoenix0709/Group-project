@@ -11,18 +11,18 @@ function submitFlag() {
     $challenge_id = $data['challenge_id'];
     $flag = $data['flag'];
 
-    // Check for easy challenge
-    if ($challenge_id == 1) { // Challenge ID 1 is the "easy" challenge
+    // Xử lý thử thách tĩnh với challenge_id = 100
+    if ($challenge_id == 100) { // Challenge ID 100 cho thử thách tĩnh
         $correct_flag = "CTF{easy_static_flag}";
         if ($flag === $correct_flag) {
-            echo json_encode(['message' => 'Correct flag']);
+            echo json_encode(['message' => 'Correct flag!']);
         } else {
-            echo json_encode(['message' => 'Incorrect flag']);
+            echo json_encode(['message' => 'Incorrect flag!']);
         }
         return;
     }
 
-    // Reuse $conn or create a new connection for other challenges
+    // Tiếp tục logic cũ cho các thử thách khác
     $servername = "localhost";  
     $username = "root";         
     $password = "userpassword";             
@@ -45,12 +45,12 @@ function submitFlag() {
         $challenge = $result->fetch_assoc();
 
         if ($challenge['flag'] === $flag) {
-            echo json_encode(['message' => 'Correct flag']);
+            echo json_encode(['message' => 'Correct flag!']);
         } else {
-            echo json_encode(['message' => 'Incorrect flag']);
+            echo json_encode(['message' => 'Incorrect flag!']);
         }
     } else {
-        echo json_encode(['message' => 'Challenge not found']);
+        echo json_encode(['message' => 'Challenge not found!']);
     }
 
     $stmt->close();
@@ -61,3 +61,6 @@ function sendError($status, $message) {
     http_response_code($status);
     echo json_encode(['error' => $message]);
 }
+
+// Gọi hàm xử lý
+submitFlag();
