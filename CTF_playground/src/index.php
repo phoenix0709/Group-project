@@ -12,4 +12,3 @@ if ($conn->connect_error) {
 }
 header("Location: Login_or_register.html");
 exit();
-?>

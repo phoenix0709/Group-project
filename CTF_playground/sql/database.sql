@@ -18,6 +18,13 @@ CREATE TABLE IF NOT EXISTS challenges (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 );
 
+INSERT INTO challenges (name, description, points) VALUES
+('Challenge 1', 'Tìm mật khẩu ẩn trong file zip.', 100),
+('Challenge 2', 'Giải mã thông điệp bằng Caesar Cipher (shift 3).', 150),
+('Challenge 3', 'Phát hiện lỗ hổng SQL Injection và lấy cờ.', 200),
+('Challenge 4', 'Tìm cờ trong một ứng dụng web ẩn.', 250),
+('Challenge 5', 'Reverse engineer file thực thi để tìm cờ.', 300);
+
 CREATE TABLE IF NOT EXISTS submissions (
   submission_id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT,

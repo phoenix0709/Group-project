@@ -1,8 +1,6 @@
 <?php
-$servername = "localhost";  
-$username = "root";         
-$password = "userpassword";             
-$dbname = "ctf_db";         
+require 'index.php';
+header("Content-Type: application/json");       
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
