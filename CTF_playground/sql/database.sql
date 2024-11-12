@@ -3,26 +3,24 @@ USE ctf_db;
 
 CREATE TABLE IF NOT EXISTS users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,  
-  username VARCHAR(255) NOT NULL UNIQUE,         
-  password_hash VARCHAR(255) NOT NULL,
-  email VARCHAR(255) UNIQUE, 
+  username VARCHAR(30) NOT NULL UNIQUE,         
+  password_hash VARCHAR(30) NOT NULL, 
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
 );
 
 CREATE TABLE IF NOT EXISTS challenges (
   challenge_id INT AUTO_INCREMENT PRIMARY KEY, 
-  name VARCHAR(255) NOT NULL,                  
+  name VARCHAR(30) NOT NULL,                  
   description TEXT,                            
   points INT NOT NULL,                         
-  flag VARCHAR(255) NOT NULL UNIQUE,           
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+  flag VARCHAR(21) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS submissions (
   submission_id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT,
   challenge_id INT,
-  flag_submitted VARCHAR(255),
+  flag_submitted VARCHAR(21),
   is_correct BOOLEAN,
   submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
@@ -57,15 +55,10 @@ JOIN users u ON s.user_id = u.user_id
 GROUP BY u.username
 ORDER BY total_score DESC;
 
-CREATE TABLE users (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(50) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    password VARCHAR(255) NOT NULL
-);
 
-CREATE TABLE challenges (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    flag VARCHAR(255) NOT NULL
-);
+-- INSERT INTO challenges (name, description, points, flag) VALUES ('Easy Puzzle', 'Solve this simple puzzle to warm up.', 10, 'CTF{easy_puzzle}');
+-- INSERT INTO challenges (name, description, points, flag) VALUES ('Medium Maze', 'Find your way out of this tricky maze.', 50, 'CTF{medium_maze}');
+-- INSERT INTO challenges (name, description, points, flag) VALUES ('Hard Cryptography', 'Decrypt the secret message using advanced cryptography.', 100, 'CTF{hard_crypto}');
+-- INSERT INTO challenges (name, description, points, flag) VALUES ('SQL Injection Challenge', 'Identify and exploit the SQL vulnerability.', 75, 'CTF{sql_injection}');
+-- INSERT INTO challenges (name, description, points, flag) VALUES ('Reverse Engineering', 'Analyze the binary and figure out how it works.', 150, 'CTF{reverse_engineering}');
+
