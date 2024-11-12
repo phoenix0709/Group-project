@@ -2,6 +2,13 @@ FROM php:7.4-apache
 
 COPY resource/ /var/www/html/
 
-RUN a2enmod rewrite
+COPY resource/generate_flag.sh /usr/local/bin/generate_flag.sh
+RUN chmod +x /usr/local/bin/generate_flag.sh
 
-RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
+COPY resource/netcat_listener.sh /usr/local/bin/netcat_listener.sh
+RUN chmod +x /usr/local/bin/netcat_listener.sh
+
+RUN chown -R www-data:www-data /var/www/html/
+
+
+CMD /usr/local/bin/generate_flag.sh && apache2-foreground

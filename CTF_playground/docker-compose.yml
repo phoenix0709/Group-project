@@ -55,16 +55,6 @@ services:
     networks:
       - ctf_net
 
-  lan4:
-    build: ./CTF_challenge/Lan4/CTF4
-    restart: unless-stopped
-    ports:
-      - "1004:80"
-    volumes:
-      - ./CTF_challenge/Lan4/CTF4/resource:/var/www/html
-    networks:
-      - ctf_net
-      
 networks:
   ctf_net:
     driver: bridge

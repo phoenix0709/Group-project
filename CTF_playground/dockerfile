@@ -9,3 +9,7 @@ COPY ./src /var/www/html
 
 # Change permissions for source code directory
 RUN chown -R www-data:www-data /var/www/html
+
+RUN apt-get update && apt-get install -y netcat
+
+CMD apache2-foreground
