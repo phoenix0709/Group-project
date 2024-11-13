@@ -56,9 +56,28 @@ GROUP BY u.username
 ORDER BY total_score DESC;
 
 
--- INSERT INTO challenges (name, description, points, flag) VALUES ('Easy Puzzle', 'Solve this simple puzzle to warm up.', 10, 'CTF{easy_puzzle}');
--- INSERT INTO challenges (name, description, points, flag) VALUES ('Medium Maze', 'Find your way out of this tricky maze.', 50, 'CTF{medium_maze}');
--- INSERT INTO challenges (name, description, points, flag) VALUES ('Hard Cryptography', 'Decrypt the secret message using advanced cryptography.', 100, 'CTF{hard_crypto}');
--- INSERT INTO challenges (name, description, points, flag) VALUES ('SQL Injection Challenge', 'Identify and exploit the SQL vulnerability.', 75, 'CTF{sql_injection}');
--- INSERT INTO challenges (name, description, points, flag) VALUES ('Reverse Engineering', 'Analyze the binary and figure out how it works.', 150, 'CTF{reverse_engineering}');
+INSERT INTO challenges (name, description, points, flag) 
+VALUES 
+('Basic Password Search', 'The basic challenge of finding the correct password account is hidden inside the sources to help players understand how to find the flag.', 20, 'CTF{hihi}'),
+('Network Log Investigation', 'This challenge is about finding flags in the network, players need to understand the network part as well as how to check logs.', 30, 'CTF{Say_goodbye}');
+
+INSERT INTO users (username, password_hash) 
+VALUES 
+('player1', 'hashed_password1'),
+('player2', 'hashed_password2'),
+('player3', 'hashed_password3');
+
+INSERT INTO submissions (user_id, challenge_id, flag_submitted, is_correct) 
+VALUES 
+(1, 1, 'CTF{hihi}', TRUE),          
+(2, 2, 'CTF{Say_goodbye}', TRUE),   
+(3, 1, 'CTF{hihi}', TRUE),          
+(3, 2, 'CTF{Say_goodbye}', TRUE);   
+
+INSERT INTO user_scores (user_id, challenge_id, score) 
+VALUES 
+(1, 1, 20),  
+(2, 2, 30),  
+(3, 1, 20),  
+(3, 2, 30);  
 
