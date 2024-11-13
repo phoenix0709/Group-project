@@ -114,12 +114,21 @@
 </div>
 
 <script>
-    // Timer logic
-    const startTime = new Date().getTime() + 3600000; // 1 hour from now
+    // Timer logic with localStorage persistence
+    const countdownKey = "countdownEndTime";
+    const storedEndTime = localStorage.getItem(countdownKey);
+
+    let endTime;
+    if (storedEndTime) {
+        endTime = parseInt(storedEndTime, 10);
+    } else {
+        endTime = new Date().getTime() + 3600000; // 1 hour from now
+        localStorage.setItem(countdownKey, endTime);
+    }
 
     function updateTimer() {
         const now = new Date().getTime();
-        const distance = startTime - now;
+        const distance = endTime - now;
 
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -130,6 +139,7 @@
         if (distance < 0) {
             clearInterval(timerInterval);
             document.getElementById("timer").innerHTML = "EXPIRED";
+            localStorage.removeItem(countdownKey);
         }
     }
 
@@ -150,6 +160,7 @@
         }
     }
 </script>
+
 
 </body>
 </html>
