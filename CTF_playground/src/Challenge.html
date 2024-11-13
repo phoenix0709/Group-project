@@ -161,11 +161,7 @@
             color: #fff;
         }
 
-        tr:nth-child(even) {
-            background-color: rgba(255, 255, 255, 0.8);
-        }
-
-        tr:nth-child(odd) {
+        tr:nth-child(even), tr:nth-child(odd) {
             background-color: rgba(255, 255, 255, 0.8);
         }
 
@@ -224,7 +220,6 @@
 </head>
 <body>
     <div class="options-icon" id="optionsIcon">☰</div>
-    <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <h2>Options</h2>
         <p id="userFullName">Full Name</p>
@@ -233,7 +228,6 @@
     </div>
 
     <div class="content-wrapper">
-        <!-- Filter Section -->
         <div class="filter-section">
             <h2>Select Difficulty</h2>
             <ul>
@@ -244,7 +238,6 @@
             </ul>
         </div>
 
-        <!-- Challenge Section -->
         <div class="challenge-container" id="challenge-container">
             <div class="challenge-header">
                 <h1 id="challenge-title">Challenges</h1>
@@ -252,11 +245,11 @@
             </div>
 
             <div class="challenge-list" id="challenge-list">
-                <!-- Dynamic challenges will be injected here -->
+                <a href="Do_Challenge 1.html" class="challenge-card">Easy Challenge 1</a>
+                <a href="Do_Challenge 2.html" class="challenge-card">Easy Challenge 2</a>
             </div>
         </div>
 
-        <!-- Leaderboard Section -->
         <div class="ranking-table" id="leaderboard">
             <h2 id="leaderboard-title">Overall Leaderboard</h2>
             <table>
@@ -319,16 +312,12 @@
         ];
 
         function showAllChallenges() {
-            // Kết hợp tất cả các thử thách
             const allChallenges = [...easyChallenges, ...mediumChallenges, ...hardChallenges];
-
-            // Hiển thị tất cả các thử thách
             generateChallenges(allChallenges);
             document.getElementById('challenge-title').innerText = "CTF Challenge - All Levels";
             document.getElementById('challenge-subtitle').innerText = "Here are all available challenges:";
             document.getElementById('challenge-container').style.display = "block"; // Hiển thị thử thách
 
-            // Hiển thị Overall Leaderboard
             generateLeaderboard(overallLeaderboard);
             document.getElementById('leaderboard-title').innerText = "Overall Leaderboard";
             document.getElementById('leaderboard').style.display = "block"; // Hiển thị bảng xếp hạng tổng
@@ -339,7 +328,6 @@
             let leaderboard = [];
             let title = "";
 
-            // Phân loại thử thách và bảng xếp hạng theo level
             switch (level) {
                 case 'easy':
                     challenges = easyChallenges;
@@ -358,7 +346,6 @@
                     break;
             }
 
-            // Hiển thị thử thách và bảng xếp hạng
             generateChallenges(challenges);
             generateLeaderboard(leaderboard);
             document.getElementById('challenge-title').innerText = title + " Challenges";
@@ -370,7 +357,7 @@
 
         function generateChallenges(challenges) {
             const challengeList = document.getElementById('challenge-list');
-            challengeList.innerHTML = ''; // Xóa các thử thách hiện có
+            challengeList.innerHTML = '';
             challenges.forEach(challenge => {
                 const challengeCard = document.createElement('div');
                 challengeCard.classList.add('challenge-card');
@@ -381,7 +368,7 @@
 
         function generateLeaderboard(leaderboard) {
             const leaderboardBody = document.getElementById('leaderboard-body');
-            leaderboardBody.innerHTML = ''; // Xóa các mục hiện có
+            leaderboardBody.innerHTML = '';
             leaderboard.forEach((entry, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `<td>${index + 1}</td><td>${entry.name}</td><td>${entry.score}</td>`;
@@ -389,7 +376,6 @@
             });
         }
 
-        // Tự động hiển thị tất cả các thử thách khi trang tải
         window.onload = showAllChallenges;
 
         // Sidebar functionality
@@ -397,7 +383,6 @@
             const sidebar = document.getElementById("sidebar");
             sidebar.classList.toggle("active");
             
-            // Hide the options icon when sidebar is active
             if (sidebar.classList.contains("active")) {
                 document.getElementById("optionsIcon").style.display = "none"; 
             }
@@ -416,7 +401,6 @@
             const sidebar = document.getElementById("sidebar");
             const optionsIcon = document.getElementById("optionsIcon");
 
-            // Check if the click is outside the sidebar and not on the options icon
             if (!sidebar.contains(event.target) && !optionsIcon.contains(event.target)) {
                 if (sidebar.classList.contains("active")) {
                     sidebar.classList.remove("active");
