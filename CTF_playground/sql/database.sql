@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS challenges (
   challenge_id INT AUTO_INCREMENT PRIMARY KEY, 
   name VARCHAR(30) NOT NULL,                  
-  description TEXT,                            
+  description TEXT,
+  difficulty VARCHAR(10),                            
   points INT NOT NULL,                         
   flag VARCHAR(21) NOT NULL UNIQUE
 );
@@ -55,11 +56,10 @@ JOIN users u ON s.user_id = u.user_id
 GROUP BY u.username
 ORDER BY total_score DESC;
 
-
-INSERT INTO challenges (name, description, points, flag) 
+INSERT INTO challenges (name, description, points, flag, difficulty)
 VALUES 
-('Basic Password Search', 'The basic challenge of finding the correct password account is hidden inside the sources to help players understand how to find the flag.', 20, 'CTF{hihi}'),
-('Network Log Investigation', 'This challenge is about finding flags in the network, players need to understand the network part as well as how to check logs.', 30, 'CTF{Say_goodbye}');
+('Basic Password Search', 'The basic challenge of finding the correct password account is hidden inside the sources to help players understand how to find the flag.', 20, 'CTF{hihi}', 'easy'),
+('Network Log Investigation', 'This challenge is about finding flags in the network, players need to understand the network part as well as how to check logs.', 30, 'CTF{Say_goodbye}', 'medium');
 
 INSERT INTO users (username, password_hash) 
 VALUES 
@@ -79,5 +79,5 @@ VALUES
 (1, 1, 20),  
 (2, 2, 30),  
 (3, 1, 20),  
-(3, 2, 30);  
+(3, 2, 30); 
 
