@@ -32,9 +32,7 @@
                 <p id="challenge-subtitle">Here are all available challenges:</p>
             </div>
 
-            <div class="challenge-list" id="challenge-list">
-                <!-- Danh sách thử thách sẽ được chèn vào đây bởi JavaScript -->
-            </div>
+            <div class="challenge-list" id="challenge-list"></div>
         </div>
 
         <div class="ranking-table" id="leaderboard">
@@ -53,37 +51,5 @@
     </div>
 
     <script src="Challenge.js"></script>
-    <script>
-        // Hàm để tải danh sách thử thách từ server
-        function loadChallenges() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "get_challenges.php", true); // Gọi file PHP để lấy dữ liệu
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    var challenges = JSON.parse(xhr.responseText); // Chuyển dữ liệu JSON thành mảng
-
-                    var challengeList = document.getElementById("challenge-list");
-                    challengeList.innerHTML = ""; // Xóa nội dung cũ trước khi thêm mới
-
-                    // Lặp qua danh sách thử thách và hiển thị
-                    challenges.forEach(function(challenge) {
-                        var div = document.createElement("div");
-                        div.classList.add("challenge");
-                        div.innerHTML = `
-                            <h3>${challenge.name}</h3>
-                            <p>${challenge.description}</p>
-                            <p>Points: ${challenge.points}</p>
-                            <p>Difficulty: ${challenge.difficulty}</p>
-                        `;
-                        challengeList.appendChild(div);
-                    });
-                }
-            };
-            xhr.send(); // Gửi yêu cầu
-        }
-
-        // Gọi hàm khi trang được tải
-        window.onload = loadChallenges;
-    </script>
 </body>
 </html>
