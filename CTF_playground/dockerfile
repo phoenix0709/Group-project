@@ -1,4 +1,4 @@
-# Using PHP Images with Apache
+# Using PHP with Apache
 FROM php:7.4-apache
 
 # Install required extensions and MySQL support
@@ -7,5 +7,10 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 # Copy source code to Apache web directory
 COPY ./src /var/www/html
 
-# Change permissions for source code directory
-RUN chown -R www-data:www-data /var/www/html
+# Copy images directory to Apache
+COPY ./images /var/www/html/images
+
+# Change permissions for source code and image directory
+RUN chown -R www-data:www-data /var/www/html /var/www/html/images
+
+

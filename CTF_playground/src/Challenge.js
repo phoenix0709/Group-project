@@ -9,12 +9,10 @@ function fetchChallenges() {
                 const card = document.createElement('div');
                 card.className = 'challenge-card';
                 card.innerHTML = `
-                    <h3>${challenge.name}</h3>
-                    <p>${challenge.description}</p>
-                    <p><strong>Points: ${challenge.points}</strong></p>
-                    <p><strong>Flag: ${challenge.flag}</strong></p>
-                    <p><strong>Difficulty: ${challenge.difficulty}</strong></p>
-                `;
+                    <h3 class="challenge-title">${challenge.name}</h3>
+                    <p class="difficulty">${challenge.difficulty}</p>
+`;
+
                 challengeList.appendChild(card);
             });
         })
