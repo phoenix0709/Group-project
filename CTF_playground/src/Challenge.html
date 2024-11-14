@@ -4,227 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CTF Challenge Page</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        body {
-            background-image: url('../images/CTF_challenge.png');
-            background-size: cover;
-            background-position: center;
-            color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .content-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            width: 100%;
-            max-width: 1200px;
-            gap: 20px;
-        }
-
-        /* Filter Section */
-        .filter-section {
-            width: 20%;
-            background-color: rgba(50, 205, 50, 0.8);
-            border: 2px solid #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
-            color: #fff;
-            height: fit-content;
-        }
-
-        .filter-section h2 {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            text-align: center;
-            text-transform: uppercase;
-        }
-
-        .filter-section ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .filter-section li {
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #fff;
-            color: #32cd32;
-            text-align: center;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .filter-section li:hover {
-            background-color: #28a828;
-            color: #fff;
-        }
-
-        /* Challenge Section */
-        .challenge-container {
-            width: 55%;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
-            color: #32cd32;
-        }
-
-        .challenge-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .challenge-header h1 {
-            font-size: 2em;
-            color: #32cd32;
-            text-shadow: 0 0 5px #32cd32;
-        }
-
-        .challenge-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: space-between;
-        }
-
-        .challenge-card {
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 2px solid #32cd32;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
-            width: 30%;
-            min-width: 250px;
-            height: 150px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-style: italic;
-            color: #32cd32;
-        }
-
-        /* Leaderboard Section */
-        .ranking-table {
-            width: 20%;
-            background-color: rgba(50, 205, 50, 0.8);
-            border: 2px solid #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(50, 205, 50, 0.3);
-            height: fit-content;
-            color: #fff;
-        }
-
-        .ranking-table h2 {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            text-align: center;
-            text-transform: uppercase;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: rgba(255, 255, 255, 0.8);
-            color: #32cd32;
-            border-radius: 8px;
-        }
-
-        table, th, td {
-            border: 1px solid #32cd32;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-            font-weight: bold;
-        }
-
-        th {
-            background-color: #28a828;
-            color: #fff;
-        }
-
-        tr:nth-child(even) {
-            background-color: rgba(255, 255, 255, 0.8);
-        }
-
-        tr:nth-child(odd) {
-            background-color: rgba(255, 255, 255, 0.8);
-        }
-
-        /* Sidebar CSS */
-        .options-icon {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            cursor: pointer;
-            font-size: 24px;
-            color: #0c0c0c;
-        }
-
-        .sidebar {
-            position: absolute;
-            top: 0;
-            left: -250px;
-            width: 250px;
-            height: 100%;
-            background-color: #32cd32;
-            padding: 20px;
-            transition: left 0.3s;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-        }
-
-        .sidebar.active {
-            left: 0;
-        }
-
-        .sidebar h2 {
-            color: #fff;
-            margin-bottom: 20px;
-        }
-
-        .sidebar p {
-            color: #fff;
-            margin-bottom: 15px;
-        }
-
-        .sidebar button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            background-color: #fff;
-            color: #32cd32;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .sidebar button:hover {
-            background-color: #f0f0f0;
-        }
-    </style>
+    <link rel="stylesheet" href="Challenge.css">
 </head>
 <body>
     <div class="options-icon" id="optionsIcon">☰</div>
-    <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <h2>Options</h2>
         <p id="userFullName">Full Name</p>
@@ -233,7 +16,6 @@
     </div>
 
     <div class="content-wrapper">
-        <!-- Filter Section -->
         <div class="filter-section">
             <h2>Select Difficulty</h2>
             <ul>
@@ -244,19 +26,15 @@
             </ul>
         </div>
 
-        <!-- Challenge Section -->
         <div class="challenge-container" id="challenge-container">
             <div class="challenge-header">
                 <h1 id="challenge-title">Challenges</h1>
                 <p id="challenge-subtitle">Here are all available challenges:</p>
             </div>
 
-            <div class="challenge-list" id="challenge-list">
-                <!-- Dynamic challenges will be injected here -->
-            </div>
+            <div class="challenge-list" id="challenge-list"></div>
         </div>
 
-        <!-- Leaderboard Section -->
         <div class="ranking-table" id="leaderboard">
             <h2 id="leaderboard-title">Overall Leaderboard</h2>
             <table>
@@ -267,163 +45,11 @@
                         <th>Score</th>
                     </tr>
                 </thead>
-                <tbody id="leaderboard-body">
-                    <!-- Dynamic leaderboard entries will be injected here -->
-                </tbody>
+                <tbody id="leaderboard-body"></tbody>
             </table>
         </div>
     </div>
 
-    <script>
-        const easyChallenges = [
-            { content: "Easy Challenge 1" },
-            { content: "Easy Challenge 2" },
-            { content: "Easy Challenge 3" },
-            { content: "Easy Challenge 4" }
-        ];
-
-        const mediumChallenges = [
-            { content: "Medium Challenge 1" },
-            { content: "Medium Challenge 2" },
-            { content: "Medium Challenge 3" },
-            { content: "Medium Challenge 4" }
-        ];
-
-        const hardChallenges = [
-            { content: "Hard Challenge 1" },
-            { content: "Hard Challenge 2" }
-        ];
-
-        const overallLeaderboard = [
-            { name: "Player B", score: 0 },
-            { name: "Player A", score: 0 },
-            { name: "Player D", score: 0 },
-            { name: "Player C", score: 0 }
-        ];
-
-        const easyLeaderboard = [
-            { name: "Player A", score: 0 },
-            { name: "Player B", score: 0 },
-            { name: "Player C", score: 0 }
-        ];
-
-        const mediumLeaderboard = [
-            { name: "Player A", score: 0 },
-            { name: "Player C", score: 0 },
-            { name: "Player D", score: 0 }
-        ];
-
-        const hardLeaderboard = [
-            { name: "Player B", score: 0 },
-            { name: "Player D", score: 0 }
-        ];
-
-        function showAllChallenges() {
-            // Kết hợp tất cả các thử thách
-            const allChallenges = [...easyChallenges, ...mediumChallenges, ...hardChallenges];
-
-            // Hiển thị tất cả các thử thách
-            generateChallenges(allChallenges);
-            document.getElementById('challenge-title').innerText = "CTF Challenge - All Levels";
-            document.getElementById('challenge-subtitle').innerText = "Here are all available challenges:";
-            document.getElementById('challenge-container').style.display = "block"; // Hiển thị thử thách
-
-            // Hiển thị Overall Leaderboard
-            generateLeaderboard(overallLeaderboard);
-            document.getElementById('leaderboard-title').innerText = "Overall Leaderboard";
-            document.getElementById('leaderboard').style.display = "block"; // Hiển thị bảng xếp hạng tổng
-        }
-
-        function showChallengesAndLeaderboard(level) {
-            let challenges = [];
-            let leaderboard = [];
-            let title = "";
-
-            // Phân loại thử thách và bảng xếp hạng theo level
-            switch (level) {
-                case 'easy':
-                    challenges = easyChallenges;
-                    leaderboard = easyLeaderboard;
-                    title = "Easy";
-                    break;
-                case 'medium':
-                    challenges = mediumChallenges;
-                    leaderboard = mediumLeaderboard;
-                    title = "Medium";
-                    break;
-                case 'hard':
-                    challenges = hardChallenges;
-                    leaderboard = hardLeaderboard;
-                    title = "Hard";
-                    break;
-            }
-
-            // Hiển thị thử thách và bảng xếp hạng
-            generateChallenges(challenges);
-            generateLeaderboard(leaderboard);
-            document.getElementById('challenge-title').innerText = title + " Challenges";
-            document.getElementById('challenge-subtitle').innerText = "Here are the available challenges:";
-            document.getElementById('challenge-container').style.display = "block"; // Hiển thị thử thách
-            document.getElementById('leaderboard-title').innerText = title + " Leaderboard";
-            document.getElementById('leaderboard').style.display = "block"; // Hiển thị bảng xếp hạng
-        }
-
-        function generateChallenges(challenges) {
-            const challengeList = document.getElementById('challenge-list');
-            challengeList.innerHTML = ''; // Xóa các thử thách hiện có
-            challenges.forEach(challenge => {
-                const challengeCard = document.createElement('div');
-                challengeCard.classList.add('challenge-card');
-                challengeCard.innerText = challenge.content;
-                challengeList.appendChild(challengeCard);
-            });
-        }
-
-        function generateLeaderboard(leaderboard) {
-            const leaderboardBody = document.getElementById('leaderboard-body');
-            leaderboardBody.innerHTML = ''; // Xóa các mục hiện có
-            leaderboard.forEach((entry, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td>${index + 1}</td><td>${entry.name}</td><td>${entry.score}</td>`;
-                leaderboardBody.appendChild(row);
-            });
-        }
-
-        // Tự động hiển thị tất cả các thử thách khi trang tải
-        window.onload = showAllChallenges;
-
-        // Sidebar functionality
-        document.getElementById("optionsIcon").addEventListener("click", function() {
-            const sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle("active");
-            
-            // Hide the options icon when sidebar is active
-            if (sidebar.classList.contains("active")) {
-                document.getElementById("optionsIcon").style.display = "none"; 
-            }
-
-            document.getElementById("userFullName").textContent = "CTF BOT"; // Replace with actual user name
-        });
-
-        // Logout button functionality
-        document.getElementById("logoutBtn").addEventListener("click", function() {
-            localStorage.clear(); 
-            window.location.href = "login_or_register.html"; // Redirect to login/register page
-        });
-
-        // Close the sidebar and show the options icon again when clicking outside
-        document.addEventListener("click", function(event) {
-            const sidebar = document.getElementById("sidebar");
-            const optionsIcon = document.getElementById("optionsIcon");
-
-            // Check if the click is outside the sidebar and not on the options icon
-            if (!sidebar.contains(event.target) && !optionsIcon.contains(event.target)) {
-                if (sidebar.classList.contains("active")) {
-                    sidebar.classList.remove("active");
-                    optionsIcon.style.display = "block"; // Show the options icon again
-                }
-            }
-        });
-    </script>
+    <script src="Challenge.js"></script>
 </body>
 </html>
