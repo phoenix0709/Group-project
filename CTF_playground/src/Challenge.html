@@ -217,6 +217,9 @@
             background-color: #f0f0f0;
         }
     </style>
+
+    <link rel="stylesheet" href="Challenge.css">
+
 </head>
 <body>
     <div class="options-icon" id="optionsIcon">☰</div>
@@ -248,6 +251,9 @@
                 <a href="Do_Challenge 1.html" class="challenge-card">Easy Challenge 1</a>
                 <a href="Do_Challenge 2.html" class="challenge-card">Easy Challenge 2</a>
             </div>
+
+            <div class="challenge-list" id="challenge-list"></
+
         </div>
 
         <div class="ranking-table" id="leaderboard">
@@ -260,13 +266,11 @@
                         <th>Score</th>
                     </tr>
                 </thead>
-                <tbody id="leaderboard-body">
-                    <!-- Dynamic leaderboard entries will be injected here -->
-                </tbody>
+                <tbody id="leaderboard-body"></tbody>
             </table>
         </div>
     </div>
-
+          
     <script>
         const easyChallenges = [
             { content: "Easy Challenge 1" },
@@ -409,5 +413,6 @@
             }
         });
     </script>
+          <script src="Challenge.js"></script>
 </body>
 </html>
