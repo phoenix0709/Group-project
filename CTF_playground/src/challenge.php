@@ -10,13 +10,18 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM challenges";
-$result = $conn->query($sql);
+if (isset($_GET['id'])) {
+    $challenge_id = intval($_GET['id']);
+    $sql = "SELECT * FROM challenges WHERE id = $challenge_id";
+} else {
+    $sql = "SELECT * FROM challenges";
+}
 
+$result = $conn->query($sql);
 $challenges = [];
 
 if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         $challenges[] = $row;
     }
 }

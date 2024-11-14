@@ -7,9 +7,6 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 # Copy source code to Apache web directory
 COPY ./src /var/www/html
 
-# Copy images directory to Apache
-COPY ./images /var/www/html/images
-
 # Change permissions for source code and image directory
 RUN chown -R www-data:www-data /var/www/html /var/www/html/images
 

@@ -11,7 +11,12 @@ function fetchChallenges() {
                 card.innerHTML = `
                     <h3 class="challenge-title">${challenge.name}</h3>
                     <p class="difficulty">${challenge.difficulty}</p>
-`;
+                `;
+
+                // Use `challenge.challenge_id` to redirect with the correct ID
+                card.addEventListener('click', () => {
+                    window.location.href = `Do_Challenge.html?id=${challenge.challenge_id}`;
+                });
 
                 challengeList.appendChild(card);
             });
