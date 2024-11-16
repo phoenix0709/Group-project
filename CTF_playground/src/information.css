@@ -1,0 +1,119 @@
+
+        /* Đặt hình nền */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('../images/Information.png'); 
+            background-size: cover; 
+            background-position: center center; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+            margin: 0;
+            padding: 0;
+            height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+
+        /* Định dạng nội dung */
+        .account-info {
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.85); 
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            text-align: left; 
+        }
+
+        .account-info h2 {
+            color: #333;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 30px; 
+        }
+
+        .info-container {
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            background-color: #B2EBF2;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .info-item strong {
+            color: #00796B;
+            display: inline-block;
+            width: 120px;
+            text-align: left;
+        }
+
+        button {
+            background-color: #ff8c00;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 10px 5px; /* Thêm khoảng cách giữa các nút */
+            width: auto;
+        }
+
+        button:hover {
+            background-color: #004d99;
+        }
+
+        .hidden {
+            display: none; /* Ẩn form chỉnh sửa mặc định */
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #editForm {
+            margin-top: 20px;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .popup h3 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .popup input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }

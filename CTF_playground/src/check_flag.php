@@ -4,33 +4,53 @@ $username = "user";
 $password = "userpassword";
 $dbname = "ctf_db";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+// require_once 'index.php'; 
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+
+if (!isset($_POST['id']) || !isset($_POST['flag'])) {
+    echo json_encode([
+        "status" => "error",
+        "message" => "Invalid input. Both 'id' and 'flag' are required."
+    ]);
+    exit;
 }
 
+$challenge_id = intval($_POST['id']);
+$user_flag = trim($_POST['flag']);
 
-$data = json_decode(file_get_contents('php://input'), true);
-$challenge_id = intval($data['id']);
-$userFlag = $data['flag'];
+try {
+    $query = "SELECT flag FROM challenge WHERE id = :id";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':id', $challenge_id, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$sql = "SELECT flag, score FROM challenges WHERE id = $challenge_id";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $correctFlag = $row['flag'];
-    $score = $row['score'];
-
-    if ($userFlag === $correctFlag) {
-        echo json_encode(['correct' => true, 'score' => $score]);
+    if (!$result) {
+        echo json_encode([
+            "status" => "error",
+            "message" => "Challenge not found."
+        ]);
     } else {
-        echo json_encode(['correct' => false]);
-    }
-} else {
-    echo json_encode(['error' => 'Challenge not found']);
-}
+        $correct_flag = $result['flag'];
 
-$conn->close();
+        if ($user_flag === $correct_flag) {
+            echo json_encode([
+                "status" => "success",
+                "message" => "Correct flag! Well done."
+            ]);
+        } else {
+            echo json_encode([
+                "status" => "error",
+                "message" => "Incorrect flag. Try again."
+            ]);
+        }
+    }
+} catch (PDOException $e) {
+    echo json_encode([
+        "status" => "error",
+        "message" => "Database error: " . $e->getMessage()
+    ]);
+}
 ?>
+
