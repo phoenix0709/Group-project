@@ -14,7 +14,11 @@
     <div class="challenge-info" id="challenge-info">
     </div>
 
-    <div class="flag-input">
+    <div class="launch-section">
+        <button id="launch-button" onclick="startChallenge()">Launch</button>
+    </div>
+
+    <div class="flag-input" id="flag-section" style="display: none;">
         <h2>Submit Flag</h2>
         <input type="text" id="flag" placeholder="Enter your flag">
         <button onclick="submitFlag()">Submit</button>
