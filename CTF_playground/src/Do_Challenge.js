@@ -35,8 +35,42 @@ function displayChallenge(challenge) {
     `;
 }
 
-
 function displayError(message) {
     const challengeInfoDiv = document.getElementById('challenge-info');
     challengeInfoDiv.innerHTML = `<p class="error">${message}</p>`;
+}
+
+function startChallenge() {
+    const launchButton = document.getElementById('launch-button');
+    const flagSection = document.getElementById('flag-section');
+    const countdownDiv = document.createElement('p');
+    countdownDiv.id = 'countdown-timer';
+    launchButton.insertAdjacentElement('afterend', countdownDiv);
+
+    let countdown = 10; // Example: 10-second countdown
+    countdownDiv.textContent = `Starting in ${countdown} seconds...`;
+
+    const interval = setInterval(() => {
+        countdown--;
+        countdownDiv.textContent = `Starting in ${countdown} seconds...`;
+        if (countdown <= 0) {
+            clearInterval(interval);
+            countdownDiv.textContent = ''; 
+            flagSection.style.display = 'block'; 
+            launchButton.style.display = 'none'; 
+        }
+    }, 1000);
+}
+
+function submitFlag() {
+    const flagInput = document.getElementById('flag').value;
+    const message = document.getElementById('flag-message');
+
+    if (flagInput.trim() === '') {
+        message.textContent = 'Please enter a flag.';
+        message.style.color = 'red';
+    } else {
+        message.textContent = 'Flag submitted successfully!';
+        message.style.color = 'green';
+    }
 }
