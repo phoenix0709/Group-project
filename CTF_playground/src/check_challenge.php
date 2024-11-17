@@ -1,6 +1,6 @@
 <?php
 // Include database configuration file
-include_once 'config.php';
+include_once 'index.php';
 
 /**
  * Function to check a challenge by its ID
