@@ -40,8 +40,9 @@ function displayError(message) {
     challengeInfoDiv.innerHTML = `<p class="error">${message}</p>`;
 }
 
-function startChallenge(challengeId) {
+function launchChallenge(challengeId) {
     const launchButton = document.getElementById('launch-button');
+    const startsection = document.getElementById('start-button');
     const flagSection = document.getElementById('flag-section');
     const countdownDiv = document.createElement('p');
     countdownDiv.id = 'countdown-timer';
@@ -65,6 +66,7 @@ function startChallenge(challengeId) {
             } else {
                 flagSection.style.display = 'block';
                 launchButton.style.display = 'none';
+                startsection.style.display = 'block';
             }
         }
     }, 1000);
@@ -80,5 +82,24 @@ function submitFlag() {
     } else {
         message.textContent = 'Flag submitted successfully!';
         message.style.color = 'green';
+    }
+}
+
+function startChallenge() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const challengeId = urlParams.get('id'); // take id from URL
+
+    if (!challengeId) {
+        alert('Challenge ID is missing!');
+        return;
+    }
+
+    // navigate by id
+    if (challengeId === '1') {
+        window.location.href = './CTF_challenge/CTF1/resource/login.html';
+    } else if (challengeId === '2') {
+        window.location.href = './CTF_challenge/CTF2/resource/start.html';
+    } else {
+        alert('Challenge not found.');
     }
 }
