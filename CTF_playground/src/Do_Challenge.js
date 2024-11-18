@@ -40,14 +40,14 @@ function displayError(message) {
     challengeInfoDiv.innerHTML = `<p class="error">${message}</p>`;
 }
 
-function startChallenge() {
+function startChallenge(challengeId) {
     const launchButton = document.getElementById('launch-button');
     const flagSection = document.getElementById('flag-section');
     const countdownDiv = document.createElement('p');
     countdownDiv.id = 'countdown-timer';
     launchButton.insertAdjacentElement('afterend', countdownDiv);
 
-    let countdown = 10; // Example: 10-second countdown
+    let countdown = 10; // 10-second countdown
     countdownDiv.textContent = `Starting in ${countdown} seconds...`;
 
     const interval = setInterval(() => {
@@ -55,9 +55,17 @@ function startChallenge() {
         countdownDiv.textContent = `Starting in ${countdown} seconds...`;
         if (countdown <= 0) {
             clearInterval(interval);
-            countdownDiv.textContent = ''; 
-            flagSection.style.display = 'block'; 
-            launchButton.style.display = 'none'; 
+            countdownDiv.textContent = '';
+
+            // Display content based on challenge ID
+            if (challengeId === 1) {
+                window.location.href = './CTF_challenge/CTF1/resource/login.html'; 
+            } else if (challengeId === 2) {
+                window.location.href = './CTF_challenge/CTF2/resource/start.html'; 
+            } else {
+                flagSection.style.display = 'block';
+                launchButton.style.display = 'none';
+            }
         }
     }, 1000);
 }

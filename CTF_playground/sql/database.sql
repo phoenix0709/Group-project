@@ -61,7 +61,7 @@ ORDER BY total_score DESC;
 INSERT INTO challenges (name, description, points, flag, difficulty, time)
 VALUES 
 ('Basic Password Search', 'The basic challenge of finding the correct password account is hidden inside the sources to help players understand how to find the flag.', 20, 'CTF{hihi}', 'easy', 30),
-('Network Log Investigation', 'This challenge is about finding flags in the network, players need to understand the network part as well as how to check logs.', 30, 'CTF{Say_goodbye}', 'medium', 30);
+('Network Log Investigation', 'This challenge is about finding flags in the network, players need to understand the network part as well as how to check logs.', 30, 'CTF{Say_goodbye}', 'easy', 30);
 
 INSERT INTO users (username, password_hash) 
 VALUES 
