@@ -1,7 +1,9 @@
 <?php
 // Include database configuration file
-include_once 'index.php';
-
+$servername = "db";
+$username = "user";
+$password = "userpassword";
+$dbname = "ctf_db";
 /**
  * Function to check a challenge by its ID
  *
