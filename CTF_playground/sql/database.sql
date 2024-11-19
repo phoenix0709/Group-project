@@ -15,7 +15,7 @@ CREATE TABLE challenges (
   difficulty VARCHAR(10),                            
   points INT NOT NULL,                         
   flag VARCHAR(21) NOT NULL UNIQUE,
-  time TIME 
+  time TIME DEFAULT NULL
 );
 
 

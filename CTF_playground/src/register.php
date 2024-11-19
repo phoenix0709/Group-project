@@ -1,6 +1,9 @@
 <?php
-// Kết nối cơ sở dữ liệu
-require 'index.php';
+$servername = "db";
+$username = "user";
+$password = "userpassword";
+$dbname = "ctf_db";
+// require 'index.php';
 header("Content-Type: application/json");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
