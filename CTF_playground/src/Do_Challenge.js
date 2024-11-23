@@ -75,15 +75,43 @@ function launchChallenge(challengeId) {
 function submitFlag() {
     const flagInput = document.getElementById('flag').value;
     const message = document.getElementById('flag-message');
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const challengeId = urlParams.get('id');
 
     if (flagInput.trim() === '') {
         message.textContent = 'Please enter a flag.';
         message.style.color = 'red';
     } else {
-        message.textContent = 'Flag submitted successfully!';
-        message.style.color = 'green';
+        fetch('check_flag.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `id=${encodeURIComponent(challengeId)}&flag=${encodeURIComponent(flagInput)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                message.textContent = data.message;
+                message.style.color = 'green';
+
+                setTimeout(() => {
+                    window.location.href = 'challenge.html';
+                }, 2000); 
+            } else {
+                message.textContent = data.message;
+                message.style.color = 'red';
+            }
+        })
+        .catch(error => {
+            console.error('Error checking flag:', error);
+            message.textContent = 'An error occurred while checking the flag.';
+            message.style.color = 'red';
+        });
     }
 }
+
 
 function startChallenge() {
     const urlParams = new URLSearchParams(window.location.search);

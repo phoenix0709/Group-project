@@ -4,9 +4,6 @@ $username = "user";
 $password = "userpassword";
 $dbname = "ctf_db";
 
-// require_once 'index.php'; 
-
-
 if (!isset($_POST['id']) || !isset($_POST['flag'])) {
     echo json_encode([
         "status" => "error",
@@ -19,7 +16,10 @@ $challenge_id = intval($_POST['id']);
 $user_flag = trim($_POST['flag']);
 
 try {
-    $query = "SELECT flag FROM challenge WHERE id = :id";
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $query = "SELECT flag FROM challenges WHERE challenge_id = :id";
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(':id', $challenge_id, PDO::PARAM_INT);
     $stmt->execute();
@@ -53,4 +53,3 @@ try {
     ]);
 }
 ?>
-
