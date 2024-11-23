@@ -1,6 +1,8 @@
 <?php
-// Kết nối cơ sở dữ liệu
-require 'index.php';
+$servername = "db";
+$username = "user";
+$password = "userpassword";
+$dbname = "ctf_db";
 session_start(); // Bắt đầu phiên làm việc
 header("Content-Type: application/json"); // Định dạng phản hồi JSON
 
