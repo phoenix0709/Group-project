@@ -1,57 +1,43 @@
 <?php
-// Kết nối cơ sở dữ liệu
-require 'index.php';
-header("Content-Type: application/json");
+$dsn = 'sqlite:/path/to/your/database.sqlite';
+$username = null;
+$password = null;
+
+try {
+    $conn = new PDO($dsn, $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data = json_decode(file_get_contents("php://input"), true);
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
 
-    if (!isset($data['username']) || !isset($data['password'])) {
-        http_response_code(400);
-        echo json_encode(["error" => "Invalid data. Please provide username and password."]);
-        exit();
+    if ($password !== $confirm_password) {
+        die("Passwords do not match.");
     }
 
-    $username = trim($data['username']);
-    $password = trim($data['password']);
+    $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
-    if (empty($username) || empty($password)) {
-        http_response_code(400);
-        echo json_encode(["error" => "Username or password cannot be empty."]);
-        exit();
-    }
-
-    if (strlen($password) < 6) {
-        http_response_code(400);
-        echo json_encode(["error" => "Password must be at least 6 characters long."]);
-        exit();
-    }
-
-    $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username);
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
+    $stmt->bindParam(':username', $username);
     $stmt->execute();
-    $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        http_response_code(409);
-        echo json_encode(["error" => "Username already exists. Please choose a different username."]);
-        exit();
+    if ($stmt->rowCount() > 0) {
+        die("Username already exists.");
     }
 
-    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-    $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-    $stmt->bind_param("ss", $username, $hashed_password);
+    $stmt = $conn->prepare("INSERT INTO users (username, password_hash) VALUES (:username, :password_hash)");
+    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':password_hash', $password_hash);
 
     if ($stmt->execute()) {
-        http_response_code(201);
-        echo json_encode(["message" => "Registration successful."]);
+        header("Location: Login_or_register.html");
+        exit();
     } else {
-        http_response_code(500);
-        echo json_encode(["error" => "System error. Unable to create account."]);
+        die("Error: Could not register the user.");
     }
-} else {
-    http_response_code(405);
-    echo json_encode(["error" => "Invalid request. Please use the POST method."]);
 }
 ?>
