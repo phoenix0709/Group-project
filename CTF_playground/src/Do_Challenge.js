@@ -42,7 +42,6 @@ function displayError(message) {
 
 function launchChallenge(challengeId) {
     const launchButton = document.getElementById('launch-button');
-    const startsection = document.getElementById('start-button');
     const flagSection = document.getElementById('flag-section');
     const countdownDiv = document.createElement('p');
     countdownDiv.id = 'countdown-timer';
@@ -59,17 +58,25 @@ function launchChallenge(challengeId) {
             countdownDiv.textContent = '';
 
             // Display content based on challenge ID
-            if (challengeId === 1) {
-                window.location.href = './CTF_challenge/CTF1/resource/login.html'; 
-            } else if (challengeId === 2) {
-                window.location.href = './CTF_challenge/CTF2/resource/start.html'; 
-            } else {
-                flagSection.style.display = 'block';
-                launchButton.style.display = 'none';
-                startsection.style.display = 'block';
-            }
+            startChallenge(challengeId); // Automatically start the challenge
         }
     }, 1000);
+}
+
+function startChallenge(challengeId) {
+    if (!challengeId) {
+        alert('Challenge ID is missing!');
+        return;
+    }
+
+    // Navigate based on challengeId
+    if (challengeId === '1') {
+        window.location.href = './CTF_challenge/CTF1/resource/login.html';
+    } else if (challengeId === '2') {
+        window.location.href = './CTF_challenge/CTF2/resource/start.html';
+    } else {
+        alert('Challenge not found.');
+    }
 }
 
 function submitFlag() {
@@ -109,25 +116,5 @@ function submitFlag() {
             message.textContent = 'An error occurred while checking the flag.';
             message.style.color = 'red';
         });
-    }
-}
-
-
-function startChallenge() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const challengeId = urlParams.get('id'); // take id from URL
-
-    if (!challengeId) {
-        alert('Challenge ID is missing!');
-        return;
-    }
-
-    // navigate by id
-    if (challengeId === '1') {
-        window.location.href = './CTF_challenge/CTF1/resource/login.html';
-    } else if (challengeId === '2') {
-        window.location.href = './CTF_challenge/CTF2/resource/start.html';
-    } else {
-        alert('Challenge not found.');
     }
 }

@@ -1,57 +1,58 @@
 <?php
+
 $dsn = 'sqlite:/var/www/db/database.db';
-session_start(); // Bắt đầu phiên làm việc
-header("Content-Type: application/json"); // Định dạng phản hồi JSON
+try {
+    $conn = new PDO($dsn); 
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+} catch (PDOException $e) {
+    echo json_encode(["error" => "Database connection failed: " . $e->getMessage()]);
+    exit();
+}
+
+session_start(); 
+header("Content-Type: application/json"); 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Nhận dữ liệu JSON từ yêu cầu
     $data = json_decode(file_get_contents("php://input"), true);
 
-    // Kiểm tra dữ liệu đầu vào
     if (!isset($data['username']) || !isset($data['password'])) {
-        http_response_code(400); // Bad Request
-        echo json_encode(["error" => "Dữ liệu không hợp lệ. Vui lòng cung cấp username và password."]);
+        http_response_code(400);
+        echo json_encode(["error" => "Invalid data. Please provide both username and password."]);
         exit();
     }
 
     $username = trim($data['username']);
     $password = trim($data['password']);
 
-    // Kiểm tra rỗng
     if (empty($username) || empty($password)) {
-        http_response_code(400); // Bad Request
-        echo json_encode(["error" => "Username và password không được để trống."]);
+        http_response_code(400);
+        echo json_encode(["error" => "Username and password cannot be empty."]);
         exit();
     }
 
-    // Tìm kiếm người dùng trong cơ sở dữ liệu
-    $stmt = $conn->prepare("SELECT id, password FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username);
+    // Query the database to find the user
+    $stmt = $conn->prepare("SELECT id, password FROM users WHERE username = :username");
+    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
     $stmt->execute();
-    $result = $stmt->get_result();
 
-    if ($result->num_rows == 1) {
-        $user = $result->fetch_assoc();
-        
-        // Kiểm tra mật khẩu
+    if ($stmt->rowCount() == 1) {
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
         if (password_verify($password, $user['password'])) {
-            // Đăng nhập thành công
             $_SESSION['user_id'] = $user['id'];
-            http_response_code(200); // OK
-            echo json_encode(["message" => "Đăng nhập thành công", "user_id" => $user['id']]);
+            http_response_code(200); 
+            echo json_encode(["message" => "Login successful", "user_id" => $user['id']]);
         } else {
-            // Mật khẩu sai
-            http_response_code(401); // Unauthorized
-            echo json_encode(["error" => "Mật khẩu không chính xác."]);
+            http_response_code(401); 
+            echo json_encode(["error" => "Incorrect password."]);
         }
     } else {
-        // Không tìm thấy tài khoản
-        http_response_code(404); // Not Found
-        echo json_encode(["error" => "Không tìm thấy người dùng."]);
+        http_response_code(404); 
+        echo json_encode(["error" => "User not found."]);
     }
 } else {
-    // Phương thức không hợp lệ
-    http_response_code(405); // Method Not Allowed
-    echo json_encode(["error" => "Yêu cầu không hợp lệ. Vui lòng sử dụng phương thức POST."]);
+
+    http_response_code(405); 
+    echo json_encode(["error" => "Invalid request method. Please use POST."]);
 }
 ?>
