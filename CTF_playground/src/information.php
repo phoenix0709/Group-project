@@ -1,10 +1,9 @@
 <?php
 session_start();
 
-$servername = "db";
-$username = "user";
-$password = "userpassword";
-$dbname = "ctf_db";
+$dsn = 'sqlite:/var/www/sql/database.db';
+$username = null;
+$password = null;
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
