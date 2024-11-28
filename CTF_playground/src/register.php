@@ -1,44 +1,29 @@
 <?php
 $dsn = 'sqlite:/var/www/db/database.db';
 try {
-    $conn = new PDO($dsn);
+    $conn = new PDO($dsn, $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    echo json_encode(["error" => "Database connection failed: " . $e->getMessage()]);
-    exit();
+    die("Connection failed: " . $e->getMessage());
 }
 
-header("Content-Type: application/json");
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data = json_decode(file_get_contents("php://input"), true);
-
-    if (!isset($data['username']) || !isset($data['password']) || !isset($data['confirm_password'])) {
-        http_response_code(400);
-        echo json_encode(["error" => "Invalid data. Please provide username, password, and confirm password."]);
-        exit();
-    }
-
-    $username = trim($data['username']);
-    $password = trim($data['password']);
-    $confirm_password = trim($data['confirm_password']);
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
 
     if ($password !== $confirm_password) {
-        http_response_code(400);
-        echo json_encode(["error" => "Passwords do not match."]);
-        exit();
+        die("Passwords do not match.");
     }
 
     $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
-    $stmt = $conn->prepare("SELECT id FROM users WHERE username = :username");
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
     $stmt->bindParam(':username', $username);
     $stmt->execute();
 
     if ($stmt->rowCount() > 0) {
-        http_response_code(400);
-        echo json_encode(["error" => "Username already exists."]);
-        exit();
+        die("Username already exists.");
     }
 
     $stmt = $conn->prepare("INSERT INTO users (username, password_hash) VALUES (:username, :password_hash)");
@@ -46,14 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bindParam(':password_hash', $password_hash);
 
     if ($stmt->execute()) {
-        http_response_code(200);
-        echo json_encode(["message" => "Registration successful! You can now log in."]);
+        header("Location: Login_or_register.html");
+        exit();
     } else {
-        http_response_code(500);
-        echo json_encode(["error" => "Error: Could not register the user. Please try again."]);
+        die("Error: Could not register the user.");
     }
-} else {
-    http_response_code(405);
-    echo json_encode(["error" => "Invalid request method. Please use POST."]);
 }
 ?>
