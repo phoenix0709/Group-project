@@ -1,8 +1,5 @@
 <?php
-$servername = "db";
-$username = "user";
-$password = "userpassword";
-$dbname = "ctf_db";
+$dsn = 'sqlite:/var/www/db/database.db';
 session_start(); // Bắt đầu phiên làm việc
 header("Content-Type: application/json"); // Định dạng phản hồi JSON
 
