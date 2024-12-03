@@ -1,5 +1,8 @@
 <?php
-$dsn = 'sqlite:/var/www/db/database.db';
+$servername = "db";
+$username = "user"; 
+$password = "userpassword"; 
+$dbname = "ctf_db"; 
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

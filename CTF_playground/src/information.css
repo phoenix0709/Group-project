@@ -1,5 +1,5 @@
 
-        /* Đặt hình nền */
+
         body {
             font-family: Arial, sans-serif;
             background-image: url('images/Information.png'); 
@@ -15,7 +15,6 @@
             align-items: center; 
         }
 
-        /* Định dạng nội dung */
         .account-info {
             max-width: 800px;
             background-color: rgba(255, 255, 255, 0.85); 
@@ -59,7 +58,7 @@
             cursor: pointer;
             border-radius: 4px;
             display: inline-block;
-            margin: 10px 5px; /* Thêm khoảng cách giữa các nút */
+            margin: 10px 5px; 
             width: auto;
         }
 
@@ -68,7 +67,7 @@
         }
 
         .hidden {
-            display: none; /* Ẩn form chỉnh sửa mặc định */
+            display: none; 
         }
 
         .form-group {

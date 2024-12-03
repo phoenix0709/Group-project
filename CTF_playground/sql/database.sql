@@ -1,25 +1,35 @@
-CREATE TABLE IF NOT EXISTS users (
-  user_id INTEGER PRIMARY KEY AUTOINCREMENT,  
-  username TEXT NOT NULL UNIQUE,         
-  password_hash TEXT NOT NULL, 
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
+CREATE DATABASE IF NOT EXISTS ctf_db;
+USE ctf_db;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(20),
+    gmail VARCHAR(255) NOT NULL,
+    birth_of_date DATE NOT NULL,
+    gender ENUM('male', 'female', 'other') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS challenges (
-  challenge_id INTEGER PRIMARY KEY AUTOINCREMENT, 
-  name TEXT NOT NULL,                  
+
+CREATE TABLE challenges (
+  challenge_id INT AUTO_INCREMENT PRIMARY KEY, 
+  name VARCHAR(30) NOT NULL,                  
   description TEXT,
-  difficulty TEXT,                             
-  points INTEGER NOT NULL,                         
-  flag TEXT NOT NULL UNIQUE,
+  difficulty VARCHAR(10),                            
+  points INT NOT NULL,                         
+  flag VARCHAR(21) NOT NULL UNIQUE,
   time TIME DEFAULT NULL
 );
 
+
 CREATE TABLE IF NOT EXISTS submissions (
-  submission_id INTEGER PRIMARY KEY AUTOINCREMENT,
-  user_id INTEGER,
-  challenge_id INTEGER,
-  flag_submitted TEXT,
+  submission_id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  challenge_id INT,
+  flag_submitted VARCHAR(21),
   is_correct BOOLEAN,
   submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
@@ -27,9 +37,9 @@ CREATE TABLE IF NOT EXISTS submissions (
 );
 
 CREATE TABLE IF NOT EXISTS user_scores (
-  user_id INTEGER,                                 
-  challenge_id INTEGER,                            
-  score INTEGER NOT NULL,                          
+  user_id INT,                                 
+  challenge_id INT,                            
+  score INT NOT NULL,                          
   completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
   PRIMARY KEY (user_id, challenge_id),         
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,   
@@ -37,17 +47,17 @@ CREATE TABLE IF NOT EXISTS user_scores (
 );
 
 CREATE TABLE IF NOT EXISTS challenge_status (
-  challenge_id INTEGER,                             
-  user_id INTEGER,                                 
+  challenge_id INT,                             
+  user_id INT,                                 
   start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   end_time TIMESTAMP,                           
-  status TEXT,                           
+  status VARCHAR(50),                          
   PRIMARY KEY (challenge_id, user_id),          
   FOREIGN KEY (challenge_id) REFERENCES challenges(challenge_id) ON DELETE CASCADE,  
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE  
 );
 
-CREATE VIEW IF NOT EXISTS leaderboard AS
+CREATE OR REPLACE VIEW leaderboard AS
 SELECT u.username, SUM(s.score) AS total_score
 FROM user_scores s
 JOIN users u ON s.user_id = u.user_id
@@ -56,8 +66,8 @@ ORDER BY total_score DESC;
 
 INSERT INTO challenges (name, description, points, flag, difficulty, time)
 VALUES 
-('Basic Password Search', 'The basic challenge of finding the correct password account is hidden inside the sources to help players understand how to find the flag.', 20, 'CTF{hihi}', 'easy', '00:30:00'),
-('Network Log Investigation', 'This challenge is about finding flags in the network, players need to understand the network part as well as how to check logs.', 30, 'CTF{Say_goodbye}', 'easy', '00:30:00');
+('Basic Password Search', 'The basic challenge of finding the correct password account is hidden inside the sources to help players understand how to find the flag.', 20, 'CTF{hihi}', 'easy', 30),
+('Network Log Investigation', 'This challenge is about finding flags in the network, players need to understand the network part as well as how to check logs.', 30, 'CTF{Say_goodbye}', 'easy', 30);
 
 INSERT INTO users (username, password_hash) 
 VALUES 
@@ -78,3 +88,4 @@ VALUES
 (2, 2, 30),  
 (3, 1, 20),  
 (3, 2, 30); 
+

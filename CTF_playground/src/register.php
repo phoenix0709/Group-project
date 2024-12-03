@@ -1,59 +1,60 @@
 <?php
-$dsn = 'sqlite:/var/www/db/database.db';
-try {
-    $conn = new PDO($dsn);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo json_encode(["error" => "Database connection failed: " . $e->getMessage()]);
+$servername = "db"; 
+$username = "user";
+$password = "userpassword";
+$dbname = "ctf_db";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$user_data = [
+    'full_name' => $_POST['full-name'],
+    'new_username' => $_POST['new-username'],
+    'new_password' => $_POST['new-password'],
+    'confirm_password' => $_POST['confirm-password'],
+    'phone_number' => $_POST['phone-number'],
+    'new_gmail' => $_POST['new-gmail'],
+    'birth_of_date' => $_POST['Birth_of_date'],
+    'gender' => $_POST['gender']
+];
+
+if ($user_data['new_password'] !== $user_data['confirm_password']) {
+    echo "Password and confirmation do not match.";
     exit();
 }
 
-header("Content-Type: application/json");
+$password_hash = password_hash($user_data['new_password'], PASSWORD_BCRYPT);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data = json_decode(file_get_contents("php://input"), true);
+function register_user($conn, $user_data, $password_hash) {
+    $sql = "INSERT INTO users (full_name, username, password_hash, phone_number, gmail, birth_of_date, gender) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-    if (!isset($data['username']) || !isset($data['password']) || !isset($data['confirm_password'])) {
-        http_response_code(400);
-        echo json_encode(["error" => "Invalid data. Please provide username, password, and confirm password."]);
-        exit();
-    }
-
-    $username = trim($data['username']);
-    $password = trim($data['password']);
-    $confirm_password = trim($data['confirm_password']);
-
-    if ($password !== $confirm_password) {
-        http_response_code(400);
-        echo json_encode(["error" => "Passwords do not match."]);
-        exit();
-    }
-
-    $password_hash = password_hash($password, PASSWORD_BCRYPT);
-
-    $stmt = $conn->prepare("SELECT id FROM users WHERE username = :username");
-    $stmt->bindParam(':username', $username);
-    $stmt->execute();
-
-    if ($stmt->rowCount() > 0) {
-        http_response_code(400);
-        echo json_encode(["error" => "Username already exists."]);
-        exit();
-    }
-
-    $stmt = $conn->prepare("INSERT INTO users (username, password_hash) VALUES (:username, :password_hash)");
-    $stmt->bindParam(':username', $username);
-    $stmt->bindParam(':password_hash', $password_hash);
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssssss", 
+        $user_data['full_name'], 
+        $user_data['new_username'], 
+        $password_hash, 
+        $user_data['phone_number'], 
+        $user_data['new_gmail'], 
+        $user_data['birth_of_date'], 
+        $user_data['gender']
+    );
 
     if ($stmt->execute()) {
-        http_response_code(200);
-        echo json_encode(["message" => "Registration successful! You can now log in."]);
+        echo "Registration successful! Redirecting to login page.";
+        header("Location: /login.html");
+        exit();
     } else {
-        http_response_code(500);
-        echo json_encode(["error" => "Error: Could not register the user. Please try again."]);
+        echo "Error: " . $stmt->error;
     }
-} else {
-    http_response_code(405);
-    echo json_encode(["error" => "Invalid request method. Please use POST."]);
+
+    $stmt->close();
 }
+
+register_user($conn, $user_data, $password_hash);
+
+$conn->close();
 ?>
