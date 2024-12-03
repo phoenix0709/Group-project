@@ -1,3 +1,4 @@
+/* General Styling */
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +7,7 @@
 }
 
 body {
-    background-image: url('../images/CTF_challenge.png');
+    background-image: url('images/CTF_challenge.png');
     background-size: cover;
     background-position: center;
     color: #f4f4f4;
@@ -17,8 +18,156 @@ body {
     min-height: 100vh;
     padding: 20px;
     overflow-x: hidden; /* Prevent horizontal scrolling */
+    padding-top: 70px; /* Ensure content starts below the top bar and navbar */
 }
 
+/* Thin Horizontal Top Bar */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px; /* Thin bar height */
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+    color: white; /* White text */
+    display: flex; /* Horizontal layout */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    font-size: 14px; /* Font size */
+    z-index: 1100; /* Place above everything */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Navigation Bar Container */
+.navbar-container {
+    position: fixed;
+    top: 30px; /* Moved below the top bar */
+    width: 100%;
+    height: 50px; /* Hover area height */
+    z-index: 1000;
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #32cd32; /* Neutral grey for contrast */
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    top: 30px; /* Matches the position of the navbar container */
+    width: 100%;
+    z-index: 1001; /* Above content but below top bar */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+    /* Default hidden state */
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Show navbar when hovering on navbar-container */
+.navbar-container:hover .navbar {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Home Icon */
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.home-icon {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.home-icon:hover {
+    transform: scale(1.1); /* Slight zoom-in effect */
+}
+
+/* Navbar Links */
+.navbar-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+}
+
+.navbar-links li {
+    display: inline-block;
+}
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navbar-links a:hover {
+    color: #f4f4f4; /* Slightly lighter on hover */
+}
+
+/* Sidebar CSS */
+.options-icon {
+    position: absolute;
+    top: 70px; /* Below the navbar */
+    right: 20px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #0c0c0c;
+}
+
+.sidebar {
+    position: absolute;
+    top: 0;
+    right: -250px; /* Hidden by default */
+    width: 250px;
+    height: 100%;
+    background-color: #32cd32;
+    padding: 20px;
+    transition: right 0.3s; /* Smooth slide-in effect */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* Above content but below navbar */
+}
+
+.sidebar.active {
+    right: 0; /* Show sidebar */
+}
+
+.sidebar h2 {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.sidebar p {
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.sidebar button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #fff;
+    color: #32cd32;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar button:hover {
+    background-color: #f0f0f0;
+}
+
+/* Main Content */
 .content-wrapper {
     display: flex;
     justify-content: space-between;
@@ -28,6 +177,7 @@ body {
     gap: 20px;
     flex-wrap: wrap; /* Allow wrapping to prevent overflow */
     overflow: hidden; /* Prevent layout from spilling out */
+    margin-top: 80px; /* Adjust for top bar and navbar */
 }
 
 /* Filter Section */
@@ -73,7 +223,7 @@ body {
     color: #fff;
 }
 
-/* Challenge Section */
+/* Challenges Section */
 .challenge-container {
     flex: 1 1 calc(33% - 20px); /* Flexible width, takes 1/3 of the row */
     max-width: calc(33% - 20px);
@@ -183,58 +333,6 @@ tr:nth-child(even) {
 
 tr:nth-child(odd) {
     background-color: rgba(255, 255, 255, 0.8);
-}
-
-/* Sidebar CSS */
-.options-icon {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    cursor: pointer;
-    font-size: 24px;
-    color: #0c0c0c;
-}
-
-.sidebar {
-    position: absolute;
-    top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100%;
-    background-color: #32cd32;
-    padding: 20px;
-    transition: left 0.3s;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-}
-
-.sidebar.active {
-    left: 0;
-}
-
-.sidebar h2 {
-    color: #fff;
-    margin-bottom: 20px;
-}
-
-.sidebar p {
-    color: #fff;
-    margin-bottom: 15px;
-}
-
-.sidebar button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: #fff;
-    color: #32cd32;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.sidebar button:hover {
-    background-color: #f0f0f0;
 }
 
 /* Responsive Design */

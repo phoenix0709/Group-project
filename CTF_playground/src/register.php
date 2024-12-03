@@ -1,67 +1,60 @@
 <?php
-$servername = "db";
+$servername = "db"; 
 $username = "user";
 $password = "userpassword";
 $dbname = "ctf_db";
-// require 'index.php';
-header("Content-Type: application/json");
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Nhận dữ liệu JSON từ yêu cầu
-    $data = json_decode(file_get_contents("php://input"), true);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Kiểm tra dữ liệu đầu vào
-    if (!isset($data['username']) || !isset($data['password'])) {
-        http_response_code(400);
-        echo json_encode(["error" => "Dữ liệu không hợp lệ. Vui lòng cung cấp username và password."]);
-        exit();
-    }
-
-    $username = trim($data['username']);
-    $password = trim($data['password']);
-
-    // Kiểm tra username rỗng
-    if (empty($username) || empty($password)) {
-        http_response_code(400);
-        echo json_encode(["error" => "Username hoặc password không được để trống."]);
-        exit();
-    }
-
-    // Kiểm tra độ dài password
-    if (strlen($password) < 6) {
-        http_response_code(400);
-        echo json_encode(["error" => "Mật khẩu phải có ít nhất 6 ký tự."]);
-        exit();
-    }
-
-    // Kiểm tra username đã tồn tại
-    $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        http_response_code(409); // Conflict
-        echo json_encode(["error" => "Username đã tồn tại. Vui lòng chọn tên khác."]);
-        exit();
-    }
-
-    // Mã hóa mật khẩu bằng bcrypt
-    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-    // Thêm người dùng vào cơ sở dữ liệu
-    $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-    $stmt->bind_param("ss", $username, $hashed_password);
-
-    if ($stmt->execute()) {
-        http_response_code(201); // Created
-        echo json_encode(["message" => "Đăng ký thành công."]);
-    } else {
-        http_response_code(500); // Internal Server Error
-        echo json_encode(["error" => "Lỗi hệ thống. Không thể tạo tài khoản."]);
-    }
-} else {
-    http_response_code(405); // Method Not Allowed
-    echo json_encode(["error" => "Yêu cầu không hợp lệ. Vui lòng sử dụng phương thức POST."]);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
+$user_data = [
+    'full_name' => $_POST['full-name'],
+    'new_username' => $_POST['new-username'],
+    'new_password' => $_POST['new-password'],
+    'confirm_password' => $_POST['confirm-password'],
+    'phone_number' => $_POST['phone-number'],
+    'new_gmail' => $_POST['new-gmail'],
+    'birth_of_date' => $_POST['Birth_of_date'],
+    'gender' => $_POST['gender']
+];
+
+if ($user_data['new_password'] !== $user_data['confirm_password']) {
+    echo "Password and confirmation do not match.";
+    exit();
+}
+
+$password_hash = password_hash($user_data['new_password'], PASSWORD_BCRYPT);
+
+function register_user($conn, $user_data, $password_hash) {
+    $sql = "INSERT INTO users (full_name, username, password_hash, phone_number, gmail, birth_of_date, gender) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssssss", 
+        $user_data['full_name'], 
+        $user_data['new_username'], 
+        $password_hash, 
+        $user_data['phone_number'], 
+        $user_data['new_gmail'], 
+        $user_data['birth_of_date'], 
+        $user_data['gender']
+    );
+
+    if ($stmt->execute()) {
+        echo "Registration successful! Redirecting to login page.";
+        header("Location: /login.html");
+        exit();
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+}
+
+register_user($conn, $user_data, $password_hash);
+
+$conn->close();
+?>
