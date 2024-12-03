@@ -9,7 +9,7 @@
     
     <div class="form-container" id="login-form">
         <h2>Login</h2>
-        <form id="login" method="POST" onsubmit="login(event)">
+        <form id="login-form" method="POST" action="login.php">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             
@@ -17,61 +17,23 @@
             <input type="password" id="password" name="password" required>
             
             <button type="submit">Login</button>
-            <p class="error-message" id="login-error"></p>
         </form>
         <p>Don't have an account? <button onclick="showRegisterForm()">Register</button></p>
     </div>
     
     <div class="form-container" id="register-form" style="display: none;">
         <h2>Register</h2>
-        <form id="register" method="POST" onsubmit="register(event)">
-            <div class="form-group">
-                <label for="full-name">Full name:</label>
-                <input type="text" id="full-name" name="full-name" required>
-            </div>
-    
-            <div class="form-group">
-                <label for="new-username">Username:</label>
-                <input type="text" id="new-username" name="new-username" required>
-            </div>
+        <form id="register-form" method="POST" action="register.php">
+            <label for="new-username">Username:</label>
+            <input type="text" id="new-username" name="new-username" required>
             
-            <div class="form-group">
-                <label for="new-password">Password:</label>
-                <input type="password" id="new-password" name="new-password" required>
-            </div>
+            <label for="new-password">Password:</label>
+            <input type="password" id="new-password" name="new-password" required>
             
-            <div class="form-group">
-                <label for="confirm-password">Confirm Password:</label>
-                <input type="password" id="confirm-password" name="confirm-password" required>
-                <p class="error-message" id="register-error"></p>
-            </div>
-    
-            <div class="form-group">
-                <label for="phone-number">Phone-number:</label>
-                <input type="tel" id="phone-number" name="phone-number" required>
-            </div>
-    
-            <div class="form-group">
-                <label for="new-gmail">Gmail:</label>
-                <input type="email" id="new-gmail" name="new-gmail" required>
-            </div>
-    
-            <div class="form-group">
-                <label for="Birth_of_date">Date of Birth:</label>
-                <input type="date" id="Birth_of_date" name="Birth_of_date" required>
-            </div>
-    
-            <div class="form-group">
-                <label for="sex">Gender:</label>
-                <div class="gender-options">
-                    <label><input type="radio" name="gender" value="male" checked> Male</label>
-                    <label><input type="radio" name="gender" value="female"> Female</label>
-                    <label><input type="radio" name="gender" value="other"> Other</label>
-                </div>
-            </div>
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm-password" required>
             
             <button type="submit">Register</button>
-            <p class="error-message" id="registration-success"></p>
         </form>
         <p>Already have an account? <button onclick="showLoginForm()">Login</button></p>
     </div>

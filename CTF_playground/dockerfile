@@ -1,13 +1,15 @@
-# Using PHP with Apache
+# Using PHP Images with Apache
 FROM php:7.4-apache
 
-# Install dependencies for SQLite
-RUN apt-get update && apt-get install -y \
-    libsqlite3-dev \
-    && docker-php-ext-install pdo pdo_sqlite
+# Install required extensions and MySQL support
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 # Copy source code to Apache web directory
 COPY ./src /var/www/html
 
-# Set ownership and permissions
+# Change permissions for source code directory
 RUN chown -R www-data:www-data /var/www/html
+
+RUN apt-get update && apt-get install -y netcat
+
+CMD apache2-foreground

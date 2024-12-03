@@ -1,16 +1,11 @@
 CREATE DATABASE IF NOT EXISTS ctf_db;
 USE ctf_db;
 
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    full_name VARCHAR(255) NOT NULL,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL,
-    phone_number VARCHAR(20),
-    gmail VARCHAR(255) NOT NULL,
-    birth_of_date DATE NOT NULL,
-    gender ENUM('male', 'female', 'other') NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE IF NOT EXISTS users (
+  user_id INT AUTO_INCREMENT PRIMARY KEY,  
+  username VARCHAR(255) NOT NULL UNIQUE,         
+  password_hash VARCHAR(255) NOT NULL,     
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
 );
 
 
