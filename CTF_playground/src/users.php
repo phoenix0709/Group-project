@@ -28,7 +28,6 @@ function registerUser() {
     }
 }
 
-// Login a user
 function loginUser() {
     $data = json_decode(file_get_contents("php://input"), true);
 
