@@ -2,7 +2,7 @@ services:
   db:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: yourpassword
+      MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: ctf_db
       MYSQL_USER: user
       MYSQL_PASSWORD: userpassword
@@ -24,11 +24,22 @@ services:
       - ./src:/var/www/html
     networks:
       - ctf_net
-  
+
+  challenge4:
+    build: ./CTF_challenge/CTF4
+    restart: unless-stopped
+    ports:
+      - "1001:80"
+    depends_on:
+      - db
+    volumes:
+      - ./CTF_challenge/CTF4/resource:/var/www/html
+    networks:
+      - ctf_net
+ 
 networks:
   ctf_net:
     driver: bridge
 
 volumes:
-  db_data: 
-
+  db_data:
