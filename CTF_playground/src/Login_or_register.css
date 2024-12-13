@@ -1,44 +1,46 @@
 
+
 html, body {
-    height: 100%;
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
 }
 
 body {
-    background-image: url('images/Login_and_Register.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     color: #333;
+    background-color: rgb(249, 254, 249);
 }
 
 h1 {
     text-align: center;
     color: #004d99;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .form-container {
-    max-width: 400px;
+    max-width: 320px;
     margin: 20px auto;
     background-color: rgba(255, 255, 255, 0.8); /* Transparency */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    border-radius: 30px;
+    box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .form-container h2 {
     margin-top: 0;
     color: #004d99;
     text-align: center;
+    font-size: 25px;
 }
 
 .form-container label {
     display: block;
     margin-bottom: 5px;
     color: #004d99;
+    margin-left: 5px;
 }
 
 .form-container input[type="text"],
@@ -46,22 +48,33 @@ h1 {
 .form-container input[type="tel"],
 .form-container input[type="date"],
 .form-container input[type="email"] {
+    display: block;    
+    margin: 0 auto;     
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 20px;
     margin-bottom: 15px;
     box-sizing: border-box;
+    font-size: 17px;
+    padding-left: 17px;
 }
 
 .form-container button[type="submit"] {
-    background-color: #ff8c00;
+    background-color: green;
     color: #ffffff;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    padding-left: 70px;
+    padding-right: 70px;
+    border-radius: 50px;
     cursor: pointer;
     font-size: 16px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    display: block;          
+    margin-left: auto;     
+    margin-right: auto;
 }
 
 .form-container button[type="submit"]:hover {
@@ -69,17 +82,30 @@ h1 {
 }
 
 .form-container button {
-    background-color: #004d99;
-    color: #fff;
-    padding: 8px 12px;
+    background-color: transparent;
+    color: green;
     border: none;
-    border-radius: 5px;
+    border-radius: 0px;
     cursor: pointer;
+    font-size: 17px;
+    font-weight: 500;
 }
 
 .form-container button:hover {
-    background-color: #003366;
+    background-color: transparent;
 }
+
+
+.form-container img {
+    width: 120px;           
+    height: 120px;          
+    border-radius: 500px;   
+    object-fit: cover;      
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
 
 .error-message {
     color: red;

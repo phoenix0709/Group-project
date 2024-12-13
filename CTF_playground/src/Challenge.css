@@ -7,7 +7,7 @@
 }
 
 body {
-    background-image: url('images/CTF_challenge.png');
+   
     background-size: cover;
     background-position: center;
     color: #f4f4f4;
@@ -21,27 +21,11 @@ body {
     padding-top: 70px; /* Ensure content starts below the top bar and navbar */
 }
 
-/* Thin Horizontal Top Bar */
-.top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 30px; /* Thin bar height */
-    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
-    color: white; /* White text */
-    display: flex; /* Horizontal layout */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    font-size: 14px; /* Font size */
-    z-index: 1100; /* Place above everything */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-}
 
 /* Navigation Bar Container */
 .navbar-container {
     position: fixed;
-    top: 30px; /* Moved below the top bar */
+    top: 0px; /* Moved below the top bar */
     width: 100%;
     height: 50px; /* Hover area height */
     z-index: 1000;
@@ -56,21 +40,11 @@ body {
     color: white;
     padding: 10px 20px;
     position: fixed;
-    top: 30px; /* Matches the position of the navbar container */
+    top: 0px; /* Matches the position of the navbar container */
     width: 100%;
     z-index: 1001; /* Above content but below top bar */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 
-    /* Default hidden state */
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
-
-/* Show navbar when hovering on navbar-container */
-.navbar-container:hover .navbar {
-    visibility: visible;
-    opacity: 1;
 }
 
 /* Home Icon */
