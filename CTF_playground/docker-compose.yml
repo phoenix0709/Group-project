@@ -25,15 +25,63 @@ services:
     networks:
       - ctf_net
 
-  challenge4:
-    build: ./CTF_challenge/CTF4
+  challenge1:
+    build: ./src/CTF_challenge/CTF1
     restart: unless-stopped
     ports:
       - "1001:80"
     depends_on:
       - db
     volumes:
-      - ./CTF_challenge/CTF4/resource:/var/www/html
+      - ./src/CTF_challenge/CTF1:/var/www/html
+    networks:
+      - ctf_net
+
+  challenge2:
+    build: ./src/CTF_challenge/CTF2
+    restart: unless-stopped
+    ports:
+      - "1002:80"
+    depends_on:
+      - db
+    volumes:
+      - ./src/CTF_challenge/CTF2:/var/www/html
+    networks:
+      - ctf_net
+
+  challenge3:
+    build: ./src/CTF_challenge/CTF3
+    restart: unless-stopped
+    ports:
+      - "1003:80"
+    depends_on:
+      - db
+    volumes:
+      - ./src/CTF_challenge/CTF3:/var/www/html
+    networks:
+      - ctf_net
+
+  challenge4:
+    build: ./src/CTF_challenge/CTF4
+    restart: unless-stopped
+    ports:
+      - "1004:80"
+    depends_on:
+      - db
+    volumes:
+      - ./src/CTF_challenge/CTF4:/var/www/html
+    networks:
+      - ctf_net
+
+  challenge5:
+    build: ./src/CTF_challenge/CTF5
+    restart: unless-stopped
+    ports:
+      - "1005:80"
+    depends_on:
+      - db
+    volumes:
+      - ./src/CTF_challenge/CTF5:/var/www/html
     networks:
       - ctf_net
  
