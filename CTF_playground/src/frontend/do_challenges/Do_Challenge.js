@@ -60,9 +60,15 @@ function launchChallenge(challengeId) {
 
             // Display content based on challenge ID
             if (challengeId === 1) {
-                window.location.href = './CTF_challenge/CTF1/resource/login.html'; 
+                window.location.href = './src/CTF_challenge/CTF1/login.html'; 
             } else if (challengeId === 2) {
-                window.location.href = './CTF_challenge/CTF2/resource/start.html'; 
+                window.location.href = './src/CTF_challenge/CTF2/start.html'; 
+            } else if (challengeId === 3) {
+                window.location.href = './src/CTF_challenge/CTF3/login.html'; 
+            } else if (challengeId === 4) {
+                window.location.href = './CTF_challenge/CTF4/resource/login.html'; 
+            } else if (challengeId === 5) {
+                window.location.href = './CTF_challenge/CTF5/resource/login.html'; 
             } else {
                 flagSection.style.display = 'block';
                 launchButton.style.display = 'none';
@@ -124,9 +130,15 @@ function startChallenge() {
 
     // navigate by id
     if (challengeId === '1') {
-        window.location.href = './CTF_challenge/CTF1/resource/login.html';
+        window.location.href = './src/CTF_challenge/CTF1/login.html';
     } else if (challengeId === '2') {
-        window.location.href = './CTF_challenge/CTF2/resource/start.html';
+        window.location.href = './src/CTF_challenge/CTF2/start.html';
+    } else if (challengeId === 3) {
+        window.location.href = './src/CTF_challenge/CTF3/login.html'; 
+    } else if (challengeId === 4) {
+        window.location.href = './CTF_challenge/CTF4/resource/login.html'; 
+    } else if (challengeId === 5) {
+        window.location.href = './CTF_challenge/CTF5/resource/login.html'; 
     } else {
         alert('Challenge not found.');
     }
