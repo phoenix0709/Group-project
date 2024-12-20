@@ -3,8 +3,8 @@ USE ctf_db;
 
 CREATE TABLE IF NOT EXISTS users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,  
-  username VARCHAR(255) NOT NULL UNIQUE,         
-  password_hash VARCHAR(255) NOT NULL,     
+  username VARCHAR(50) NOT NULL UNIQUE,         
+  password_hash VARCHAR(70) NOT NULL,     
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
 );
 
@@ -17,7 +17,7 @@ CREATE TABLE challenges (
   points INT NOT NULL,                         
   flag VARCHAR(21) NOT NULL UNIQUE,
   time TIME DEFAULT NULL,
-  hint TEXT NOT NULL
+  hint VARCHAR(100)
 );
 
 
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS challenge_status (
   user_id INT,                                 
   start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   end_time TIMESTAMP,                           
-  status VARCHAR(50),                          
+  status VARCHAR(10),                          
   PRIMARY KEY (challenge_id, user_id),          
   FOREIGN KEY (challenge_id) REFERENCES challenges(challenge_id) ON DELETE CASCADE,  
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE  

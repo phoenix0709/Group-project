@@ -42,41 +42,46 @@ function displayError(message) {
 
 function launchChallenge(challengeId) {
     const launchButton = document.getElementById('launch-button');
-    const startsection = document.getElementById('start-button');
-    const flagSection = document.getElementById('flag-section');
-    const countdownDiv = document.createElement('p');
-    countdownDiv.id = 'countdown-timer';
-    launchButton.insertAdjacentElement('afterend', countdownDiv);
+    const flagSection = document.getElementById('flag-section')
+    if (!challengeId) {
+        alert('Challenge ID is missing!');
+        return;
+    }
 
-    let countdown = 10; // 10-second countdown
-    countdownDiv.textContent = `Starting in ${countdown} seconds...`;
+    let url;
 
-    const interval = setInterval(() => {
-        countdown--;
-        countdownDiv.textContent = `Starting in ${countdown} seconds...`;
-        if (countdown <= 0) {
-            clearInterval(interval);
-            countdownDiv.textContent = '';
+    // Xác định URL dựa trên challengeId
+    if (challengeId === '1') {
+        url = './src/CTF_challenge/CTF1/login.html';
+    } else if (challengeId === '2') {
+        url = './src/CTF_challenge/CTF2/start.html';
+    } else if (challengeId === '3') {
+        url = './src/CTF_challenge/CTF3/login.html';
+    } else if (challengeId === '4') {
+        url = './CTF_challenge/CTF4/resource/login.html';
+    } else if (challengeId === '5') {
+        url = './CTF_challenge/CTF5/resource/login.html';
+    } else {
+        alert('Challenge not found.');
+        return;
+    }
 
-            // Display content based on challenge ID
-            if (challengeId === 1) {
-                window.location.href = './src/CTF_challenge/CTF1/login.html'; 
-            } else if (challengeId === 2) {
-                window.location.href = './src/CTF_challenge/CTF2/start.html'; 
-            } else if (challengeId === 3) {
-                window.location.href = './src/CTF_challenge/CTF3/login.html'; 
-            } else if (challengeId === 4) {
-                window.location.href = './CTF_challenge/CTF4/resource/login.html'; 
-            } else if (challengeId === 5) {
-                window.location.href = './CTF_challenge/CTF5/resource/login.html'; 
-            } else {
-                flagSection.style.display = 'block';
-                launchButton.style.display = 'none';
-                startsection.style.display = 'block';
-            }
-        }
-    }, 1000);
+    // Mở URL trong một tab mới
+    window.open(url, '_blank');
 }
+
+// Lắng nghe sự kiện DOMContentLoaded và gắn sự kiện cho nút launch
+// Ví dụ thêm:
+document.addEventListener('DOMContentLoaded', () => {
+    const launchButton = document.getElementById('launch-button');
+    const urlParams = new URLSearchParams(window.location.search);
+    const challengeId = urlParams.get('id');
+
+    if (launchButton) {
+        launchButton.addEventListener('click', () => launchChallenge(challengeId));
+    }
+});
+
 
 function submitFlag() {
     const flagInput = document.getElementById('flag').value;
@@ -118,28 +123,3 @@ function submitFlag() {
     }
 }
 
-
-function startChallenge() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const challengeId = urlParams.get('id'); // take id from URL
-
-    if (!challengeId) {
-        alert('Challenge ID is missing!');
-        return;
-    }
-
-    // navigate by id
-    if (challengeId === '1') {
-        window.location.href = './src/CTF_challenge/CTF1/login.html';
-    } else if (challengeId === '2') {
-        window.location.href = './src/CTF_challenge/CTF2/start.html';
-    } else if (challengeId === 3) {
-        window.location.href = './src/CTF_challenge/CTF3/login.html'; 
-    } else if (challengeId === 4) {
-        window.location.href = './CTF_challenge/CTF4/resource/login.html'; 
-    } else if (challengeId === 5) {
-        window.location.href = './CTF_challenge/CTF5/resource/login.html'; 
-    } else {
-        alert('Challenge not found.');
-    }
-}
