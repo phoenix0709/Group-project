@@ -41,8 +41,6 @@ function displayError(message) {
 }
 
 function launchChallenge(challengeId) {
-    const launchButton = document.getElementById('launch-button');
-    const flagSection = document.getElementById('flag-section')
     if (!challengeId) {
         alert('Challenge ID is missing!');
         return;
@@ -71,7 +69,6 @@ function launchChallenge(challengeId) {
 }
 
 // Lắng nghe sự kiện DOMContentLoaded và gắn sự kiện cho nút launch
-// Ví dụ thêm:
 document.addEventListener('DOMContentLoaded', () => {
     const launchButton = document.getElementById('launch-button');
     const urlParams = new URLSearchParams(window.location.search);
