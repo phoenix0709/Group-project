@@ -62,9 +62,11 @@ ORDER BY total_score DESC;
 
 INSERT INTO challenges (name, description, points, flag, difficulty, time)
 VALUES 
-('Basic Password Search', 'The basic challenge of finding the correct password account is hidden inside the sources to help players understand how to find the flag.', 20, 'CTF{hihi}', 'easy', 30),
-('Network Log Investigation', 'This challenge is about finding flags in the network, players need to understand the network part as well as how to check logs.', 30, 'CTF{Say_goodbye}', 'easy', 30);
-
+('Basic Password Search', 'The basic challenge of finding the correct password account is hidden inside the sources to help players understand how to find the flag.', 20, 'CTF{hihi}', 'easy', 10),
+('Network Log Investigation', 'This challenge is about finding flags in the network, players need to understand the network part as well as how to check logs.', 30, 'CTF{Say_goodbye}', 'easy', 10);
+('Access Management','This challenge requires changing access rights from user to admin (additional upgrades require bypassing verification, and increases the difficulty to reach hard level).', 50, 'CTF{admin_flag}', 'medium', 20);
+('Bypass','The web application uses default credentials, which are easy to guess. Players have to find them out and login to get the flag.', 20, 'CTF{security_default_credentials}', 'easy', 10);
+('Bypass2','The challenge requires bypassing through multiple stages to get the flag.', 50, 'CTF{multiple_bypass_success}', 'medium', 20);
 INSERT INTO users (username, password_hash) 
 VALUES 
 ('player1', 'hashed_password1'),
