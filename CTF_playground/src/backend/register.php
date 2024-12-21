@@ -24,7 +24,7 @@ if ($new_password !== $confirm_password) {
     $stmt->bind_param("ss", $new_username, $password_hash);
 
     if ($stmt->execute()) {
-        header("Location: /Challenge.html");
+        header("Location: /frontend/challenges/Challenge.html");
         exit();
     } else {
         echo "Error: " . $stmt->error;

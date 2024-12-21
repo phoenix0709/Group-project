@@ -22,7 +22,7 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     if (password_verify($password, $row['password_hash'])) {
-        header("Location: /Challenge.html");
+        header("Location: /frontend/challenges/Challenge.html");
         exit();
     } else {
         echo "Incorrect username or password.";
