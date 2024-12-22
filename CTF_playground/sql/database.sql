@@ -15,9 +15,9 @@ CREATE TABLE challenges (
   description TEXT,
   difficulty VARCHAR(10),                            
   points INT NOT NULL,                         
-  flag VARCHAR(21) NOT NULL UNIQUE,
+  flag VARCHAR(40) NOT NULL UNIQUE,
   time TIME DEFAULT NULL,
-  hint VARCHAR(100)
+  hint VARCHAR(125)
 );
 
 
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS submissions (
   submission_id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT,
   challenge_id INT,
-  flag_submitted VARCHAR(21),
+  flag_submitted VARCHAR(40),
   is_correct BOOLEAN,
   submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
@@ -63,9 +63,9 @@ ORDER BY total_score DESC;
 INSERT INTO challenges (name, description, points, flag, difficulty, time)
 VALUES 
 ('Basic Password Search', 'The basic challenge of finding the correct password account is hidden inside the sources to help players understand how to find the flag.', 20, 'CTF{hihi}', 'easy', 10),
-('Network Log Investigation', 'This challenge is about finding flags in the network, players need to understand the network part as well as how to check logs.', 30, 'CTF{Say_goodbye}', 'easy', 10);
-('Access Management', 'This challenge requires changing access rights from user to admin (additional upgrades require bypassing verification, and increases the difficulty to reach hard level).', 50, 'CTF{admin_flag}', 'medium', 20),
+('Network Log Investigation', 'This challenge is about finding flags in the network, players need to understand the network part as well as how to check logs.', 30, 'CTF{Say_goodbye}', 'easy', 10),
 ('Bypass', 'The web application uses default credentials, which are easy to guess. Players have to find them out and login to get the flag.', 20, 'CTF{security_default_credentials}', 'easy', 10),
+('Access Management', 'This challenge requires changing access rights from user to admin (additional upgrades require bypassing verification, and increases the difficulty to reach hard level).', 50, 'CTF{admin_flag}', 'medium', 20),
 ('Bypass2', 'The challenge requires bypassing through multiple stages to get the flag.', 50, 'CTF{multiple_bypass_success}', 'medium', 20);
 INSERT INTO users (username, password_hash) 
 VALUES 

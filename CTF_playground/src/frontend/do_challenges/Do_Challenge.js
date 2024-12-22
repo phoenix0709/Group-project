@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const challengeId = urlParams.get('id');
@@ -10,8 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
 function fetchChallengeDetails(id) {
-    fetch(`get_challenge.php?id=${id}`)
+    fetch(`../../../backend/get_challenge.php?id=${id}`)
         .then(response => response.json())
         .then(data => {
             if (data.error) {
@@ -40,44 +42,102 @@ function displayError(message) {
     challengeInfoDiv.innerHTML = `<p class="error">${message}</p>`;
 }
 
-function launchChallenge(challengeId) {
-    if (!challengeId) {
-        alert('Challenge ID is missing!');
-        return;
-    }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Tìm nút launch-button
+    const launchButton = document.getElementById('launch-button');
+
+    // Lấy challengeId từ URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const challengeId = urlParams.get('id');
+
+    console.log('Challenge ID on DOMContentLoaded:', challengeId);
+
+    // Đảm bảo chỉ gắn sự kiện nếu nút tồn tại
+    if (launchButton) {
+        // Xóa mọi sự kiện click trước đó
+        launchButton.replaceWith(launchButton.cloneNode(true));
+        const newLaunchButton = document.getElementById('launch-button');
+
+        // Gắn sự kiện mới
+        newLaunchButton.addEventListener('click', (event) => {
+            event.preventDefault(); // Ngăn chặn hành động mặc định nếu trong form
+            if (!challengeId) {
+                alert('Challenge ID is missing!');
+                return;
+            }
+            launchChallenge(challengeId);
+        });
+    }
+});
+
+function launchChallenge(challengeId) {
     let url;
+
+    // Log để kiểm tra giá trị truyền vào
+    console.log('Launching Challenge ID:', challengeId);
 
     // Xác định URL dựa trên challengeId
     if (challengeId === '1') {
-        url = './src/CTF_challenge/CTF1/login.html';
+        url = '../../CTF_challenge/CTF1/login.html';
     } else if (challengeId === '2') {
-        url = './src/CTF_challenge/CTF2/start.html';
+        url = '../../CTF_challenge/CTF2/start.html';
     } else if (challengeId === '3') {
-        url = './src/CTF_challenge/CTF3/login.html';
+        url = '../../CTF_challenge/CTF3/login.html';
     } else if (challengeId === '4') {
-        url = './CTF_challenge/CTF4/resource/login.html';
+        url = '../../../CTF_challenge/CTF4/resource/login.html';
     } else if (challengeId === '5') {
-        url = './CTF_challenge/CTF5/resource/login.html';
+        url = '../../../CTF_challenge/CTF5/resource/login.html';
     } else {
         alert('Challenge not found.');
         return;
     }
 
-    // Mở URL trong một tab mới
+    // Mở URL trong tab mới
     window.open(url, '_blank');
 }
 
-// Lắng nghe sự kiện DOMContentLoaded và gắn sự kiện cho nút launch
-document.addEventListener('DOMContentLoaded', () => {
-    const launchButton = document.getElementById('launch-button');
-    const urlParams = new URLSearchParams(window.location.search);
-    const challengeId = urlParams.get('id');
 
-    if (launchButton) {
-        launchButton.addEventListener('click', () => launchChallenge(challengeId));
-    }
-});
+
+
+
+
+
+
+
+
+
+
 
 
 function submitFlag() {
@@ -91,7 +151,7 @@ function submitFlag() {
         message.textContent = 'Please enter a flag.';
         message.style.color = 'red';
     } else {
-        fetch('check_flag.php', {
+        fetch('../../../backend/check_flag.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

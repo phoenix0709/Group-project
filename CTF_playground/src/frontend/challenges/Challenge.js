@@ -1,6 +1,6 @@
 // Fetch and display all challenges
 function fetchChallenges() {
-    fetch('challenge.php')
+    fetch('../../..challenge.php')
         .then(response => response.json())
         .then(challenges => {
             const challengeList = document.getElementById('challenge-list');
@@ -16,7 +16,7 @@ function fetchChallenges() {
 
                 // Redirect to the challenge page with the correct ID
                 card.addEventListener('click', () => {
-                    window.location.href = `Do_Challenge.html?id=${challenge.challenge_id}`;
+                    window.location.href = `../do_challenges/Do_Challenge.html?id=${challenge.challenge_id}`;
                 });
 
                 challengeList.appendChild(card);
@@ -27,7 +27,7 @@ function fetchChallenges() {
 
 // Fetch and display leaderboard
 function fetchLeaderboard() {
-    fetch('leaderboard.php')
+    fetch('../../../backend/leaderboard.php')
         .then(response => response.json())
         .then(leaderboard => {
             const leaderboardBody = document.getElementById('leaderboard-body');
@@ -86,7 +86,7 @@ function showChallengesAndLeaderboard(difficulty) {
     }
 
     // Fetch challenges and filter them based on difficulty
-    fetch('challenge.php')
+    fetch('../../../backend/challenge.php')
         .then(response => response.json())
         .then(challenges => {
             const challengeList = document.getElementById('challenge-list');
@@ -107,7 +107,7 @@ function showChallengesAndLeaderboard(difficulty) {
 
                 // Redirect to the challenge page with the correct ID
                 card.addEventListener('click', () => {
-                    window.location.href = `Do_Challenge.html?id=${challenge.challenge_id}`;
+                    window.location.href = `../do_challenges/Do_Challenge.html?id=${challenge.challenge_id}`;
                 });
 
                 challengeList.appendChild(card);
