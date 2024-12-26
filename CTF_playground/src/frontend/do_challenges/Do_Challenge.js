@@ -115,9 +115,9 @@ function launchChallenge(challengeId) {
     } else if (challengeId === '3') {
         url = '../../CTF_challenge/CTF3/login.html';
     } else if (challengeId === '4') {
-        url = '../../../CTF_challenge/CTF4/resource/login.html';
+        url = 'http://localhost:1004/login.html';
     } else if (challengeId === '5') {
-        url = '../../../CTF_challenge/CTF5/resource/login.html';
+        url = 'http://localhost:1005/login.html';
     } else {
         alert('Challenge not found.');
         return;
